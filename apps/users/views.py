@@ -1,3 +1,99 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
+from django.urls import reverse_lazy
+from django.views import generic
+from django.contrib import messages
+from .models import CustomUser
+from .forms import UserForm, UserUpdateForm
+from django.contrib.auth import login, logout, authenticate
+from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 
-# Create your views here.
+
+class RegisterUserView(generic.CreateView):
+    queryset = CustomUser.objects.all()
+    form_class = UserForm
+    template_name = "users/register.html"
+    success_url = reverse_lazy("user_login")
+
+    def form_valid(self, request, form):
+        messages.success(self.request, "registration successful.")
+        return super().form_valid(form)
+
+    def form_invalid(self, request, form):
+        messages.error(request, "an error occured, please try again.")
+        return super().form_invalid(form)
+
+
+class ListUserView(generic.ListView):
+    queryset = CustomUser.objects.all()
+    template_name = "users/list.html"
+    context_object_name = "users"
+    success_url = reverse_lazy("user_login")
+    paginated_by = 20
+
+
+class RetrieveUserView(generic.DetailView):
+    queryset = CustomUser.objects.all()
+    template_name = "users/rerieve.html"
+    context_object_name = "user"
+    success_url = reverse_lazy("user_login")
+
+
+class UpdateUserView(generic.UpdateView):
+    queryset = CustomUser.objects.all()
+    template_name = "users/update.html"
+    form_class = UserUpdateForm
+    success_url = reverse_lazy("user_login")
+
+    def form_valid(self, request, form):
+        messages.success(self.request, "profile update successful.")
+        return super().form_valid(form)
+
+    def form_invalid(self, request, form):
+        messages.error(request, "could not update profile, please try again.")
+        return super().form_invalid(form)
+
+
+class DeleteUserView(generic.DeleteView):
+    queryset = CustomUser.objects.all()
+    template_name = "users/delete.html"
+    success_url = reverse_lazy("user_login")
+
+
+class UserLoginView(generic.TemplateView):
+    template_name = "users/login.html"
+
+    def get(self, request):
+        return render(request, 'login.html')
+
+    def post(self, request):
+        email = request.POST.get('username')
+        password = request.POST('password')
+        user = authenticate(username=email, password=password)
+        if user is not None:
+            login(request, user)
+            return redirect('success')
+        return redirect("user_login")
+
+
+class UserLogoutView(generic.TemplateView):
+    def get(self, request):
+        logout(request)
+        return redirect('user_login')
+
+
+class CustomChangePasswordView(PasswordChangeView):
+    queryset = CustomUser.objects.all()
+    template_name = 'users/password_change.html'
+    success_url = reverse_lazy("update_user")
+
+    def form_valid(self, request, form):
+        messages.success(self.request, "password reset successful.")
+        return super().form_valid(form)
+
+    def form_invalid(self, request, form):
+        messages.error(request, "could not reset password, please try again.")
+        return super().form_invalid(form)
+
+
+class CustomPasswordResetCompleteView(PasswordChangeDoneView):
+    template_name = 'users/password_change_complete.html'
