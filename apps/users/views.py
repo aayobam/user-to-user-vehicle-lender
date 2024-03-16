@@ -2,10 +2,11 @@ from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib import messages
-from .models import CustomUser
-from .forms import UserForm, UserUpdateForm
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
+from django.contrib.auth.mixins import LoginRequiredMixin
+from .models import CustomUser
+from .forms import UserForm, UserUpdateForm
 
 
 class RegisterUserView(generic.CreateView):
@@ -23,7 +24,7 @@ class RegisterUserView(generic.CreateView):
         return super().form_invalid(form)
 
 
-class ListUserView(generic.ListView):
+class ListUserView(LoginRequiredMixin, generic.ListView):
     queryset = CustomUser.objects.all()
     template_name = "users/list.html"
     context_object_name = "users"
@@ -31,14 +32,14 @@ class ListUserView(generic.ListView):
     paginated_by = 20
 
 
-class RetrieveUserView(generic.DetailView):
+class RetrieveUserView(LoginRequiredMixin, generic.DetailView):
     queryset = CustomUser.objects.all()
     template_name = "users/rerieve.html"
     context_object_name = "user"
     success_url = reverse_lazy("user_login")
 
 
-class UpdateUserView(generic.UpdateView):
+class UpdateUserView(LoginRequiredMixin, generic.UpdateView):
     queryset = CustomUser.objects.all()
     template_name = "users/update.html"
     form_class = UserUpdateForm
@@ -53,7 +54,7 @@ class UpdateUserView(generic.UpdateView):
         return super().form_invalid(form)
 
 
-class DeleteUserView(generic.DeleteView):
+class DeleteUserView(LoginRequiredMixin, generic.DeleteView):
     queryset = CustomUser.objects.all()
     template_name = "users/delete.html"
     success_url = reverse_lazy("user_login")
@@ -81,7 +82,7 @@ class UserLogoutView(generic.TemplateView):
         return redirect('user_login')
 
 
-class CustomChangePasswordView(PasswordChangeView):
+class CustomChangePasswordView(LoginRequiredMixin, PasswordChangeView):
     queryset = CustomUser.objects.all()
     template_name = 'users/password_change.html'
     success_url = reverse_lazy("update_user")
@@ -95,5 +96,5 @@ class CustomChangePasswordView(PasswordChangeView):
         return super().form_invalid(form)
 
 
-class CustomPasswordResetCompleteView(PasswordChangeDoneView):
+class CustomPasswordResetCompleteView(LoginRequiredMixin, PasswordChangeDoneView):
     template_name = 'users/password_change_complete.html'
