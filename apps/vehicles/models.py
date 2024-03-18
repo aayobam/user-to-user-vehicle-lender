@@ -1,13 +1,14 @@
 from django.db import models
 from django.urls import reverse
 from apps.common.base_model import BaseModel
+from apps.common.choices import VEHICLE_MAKES, VEHICLE_TYPES
 from apps.users.models import CustomUser
 
 
 class Vehicle(BaseModel):
     owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    type = models.CharField(max_length=100, blank=True, null=True)
-    make = models.CharField(max_length=50)
+    type = models.CharField(choices=VEHICLE_TYPES, max_length=100)
+    make = models.CharField(choices=VEHICLE_MAKES, max_length=100)
     model = models.CharField(max_length=100, blank=True, null=True)
     year = models.CharField(max_length=50)
     registration_number = models.CharField(max_length=100, blank=True, null=True)
