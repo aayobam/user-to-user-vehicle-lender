@@ -37,8 +37,9 @@ class SearchResultView(generic.ListView):
     paginate_by = 20
 
     def get_queryset(self):
-        query: str = self.query_params.get("query")
-        if query is not None or query != " ":
-            qs = Q(type__icontains=query) | Q(make__icontains=query) | Q(model__icontains=query)
+        vehicle_type: str = self.query_params.get("type")
+        location: str = self.query_params.get("location")
+        if (vehicle_type is not None or vehicle_type != " ") or (location is not None or location != " "):
+            qs = Q(type__icontains=vehicle_type) | Q(location__icontains=location)
             return self.queryset.filter(qs)
-        return self.queryset
+        return self.queryset.filter(location__icontains=self.request.user.location)

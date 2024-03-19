@@ -23,6 +23,9 @@ class BookVehicleView(LoginRequiredMixin, generic.CreateView):
         if not self.is_booking_available(form.instance.vehicle, form.instance.start_date, form.instance.end_date):
             messages.info(self.request, "bookings not available, please select a different date or check other vehicles.")
             return redirect('available_vehicles')
+        if not self.cannot_book_own_listing(form.instance):
+            messages.info(self.request, "you cannot rent your own vehicle listing(s).")
+            return redirect('available_vehicles')
         messages.success(self.request, "booking successfull.")
         return super().form_valid(form)
 
@@ -35,6 +38,11 @@ class BookVehicleView(LoginRequiredMixin, generic.CreateView):
         for booking in bookings:
             if not (end_date < booking.start_date or start_date > booking.end_date):
                 return False
+        return True
+    
+    def cannot_book_own_listing(booking:Booking):
+        if booking.renter == booking.vehicle.owner:
+            return False
         return True
 
 

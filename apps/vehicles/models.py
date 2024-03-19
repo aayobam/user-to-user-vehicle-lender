@@ -7,8 +7,8 @@ from apps.users.models import CustomUser
 
 class Vehicle(BaseModel):
     owner = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
-    type = models.CharField(choices=VEHICLE_TYPES, max_length=100)
-    make = models.CharField(choices=VEHICLE_MAKES, max_length=100)
+    type = models.CharField(choices=VEHICLE_TYPES,max_length=100, blank=True, null=True)
+    make = models.CharField(choices=VEHICLE_MAKES, max_length=100, blank=True, null=True)
     model = models.CharField(max_length=100, blank=True, null=True)
     year = models.CharField(max_length=50)
     registration_number = models.CharField(max_length=100, blank=True, null=True)
@@ -29,7 +29,7 @@ class Vehicle(BaseModel):
         verbose_name_plural = "Vehicles"
 
     def __str__(self):
-        return self.type
+        return f"{self.make} {self.type}"
 
     def get_absolute_url(self):
         return reverse("vehicle_detail", kwargs={"id": self.id})
