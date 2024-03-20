@@ -1,0 +1,11 @@
+:root {
+  --custom-pri: #ff5c00;
+  --white: #ffffff;
+}
+
+.no-acc a {
+  color: var(--custom-pri);
+}
+.custom-btn {
+  background: var(--custom-pri);
+}

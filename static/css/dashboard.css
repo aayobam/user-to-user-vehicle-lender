@@ -1,0 +1,41 @@
+aside {
+  background-color: rgba(255, 92, 0, 0.015);
+  min-height: 100vh;
+}
+
+.nav-link {
+  padding-top: 0;
+}
+.user-avater {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background-color: rgba(255, 92, 0, 0.09);
+
+  overflow: hidden;
+}
+.nav-tabs .nav-item .nav-link {
+  border: none;
+  border-radius: 0;
+  color: rgba(255, 92, 0);
+}
+
+.nav-tabs .nav-item .nav-link.active {
+  padding: 10px 0;
+  background-color: rgba(255, 92, 0);
+  color: white;
+}
+
+.tab-content {
+  border: none;
+  border-top: transparent;
+  padding: 15px;
+}
+
+.password .max-width {
+  max-width: 520px;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}

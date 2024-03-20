@@ -1,0 +1,36 @@
+:root {
+  --custom-pri: #ff5c00;
+  --white: #ffffff;
+}
+
+/* Hero  section  */
+.hero {
+  background: url(/media/images/Ellipse1.png) no-repeat right -10px top;
+}
+
+.hero__title {
+  font-size: 50px !important;
+}
+
+.special {
+  color: var(--custom-pri);
+}
+
+.icon {
+  width: 64px;
+  height: 64px;
+  background-color: rgba(255, 92, 0, 0.1);
+  color: var(--custom-pri);
+}
+
+.rental-deal__img-wrapper {
+  height: 300px;
+}
+
+/* Media Queries */
+
+@media (min-width: 640px) {
+  .hero__title {
+    font-size: 65px !important;
+  }
+}

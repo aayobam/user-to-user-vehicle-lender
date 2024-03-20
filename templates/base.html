@@ -1,18 +1,83 @@
 {% load static %}
 <!DOCTYPE html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"/>
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" 9rel="stylesheet"/>
+    <link rel="stylesheet" href="{% static "./bootstrap/css/bootstrap.min.css" %}"/>
+    <link rel="stylesheet" href="{% static './css/index.css' %}" />
+    <link rel="stylesheet" href="{% static './css/all-cars.css' %}"/>
+    {% block css %}{% endblock css %}
+    <title>Vehicle Rental</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-sm">
+          <a class="navbar-brand logo d-block d-lg-none fw-bold fs-4" href="/">Vehicle2Rent</a>
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a class="navbar-brand d-none d-lg-block fw-bold fs-4 me-auto" href="/">Vehicle2Rent</a>
+            <ul class="navbar-nav mb-2 fw-medium fs-5 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="/dashboard.html">Home</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url "about" %}">About </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="{% url "home" %}">Available Cars</a>
+              </li>
+              <li class="nav-item">
+                <a class="btn btn-outline-warning text-black fw-medium py-2 px-4" href="{% url "user_login" %}">Get Started</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <link rel="stylesheet" href="style.css" type="text/css">
-    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
-</head>
-
-<body>
+    {% if messages %}
+      {% for message in messages %}
+        <div class="container text-center mt-5" style="max-width: 600px;" id="alert">
+          {% if message.tags == "warning" %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible show" role="alert">
+              <i class="icon fa fa-exclamation-triangle"></i>
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="True">&times;</span>
+              </button>
+            </div>
+          {% else %}
+            <div class="alert alert-{{ message.tags }} alert-dismissible show" role="alert">
+              {{ message }}
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="True">&times;</span>
+              </button>
+            </div>
+          {% endif %}
+        </div>
+      {% endfor %}
+    {% endif %}
     {% block content %}{% endblock content %}
-    <script src="custom.js"></script>
-</body>
-
+   
+    <footer class="py-5 bg-secondary">
+      <div class="container-sm">
+        <p class="text-center text-white">Footer will come here</p>
+      </div>
+    </footer>
+    <script src="{% static "./js/script.js" %}"></script>
+    <script src="{% static "./bootstrap/js/bootstrap.bundle.min.js" %}"></script>
+  </body>
 </html>

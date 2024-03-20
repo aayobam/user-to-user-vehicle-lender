@@ -7,3 +7,9 @@ class Validators:
         if content_type not in content_types:
             return False
         return True
+
+    @staticmethod
+    def validate_password(password: str, confirm_password: str):
+        if confirm_password == password:
+            return True
+        return False

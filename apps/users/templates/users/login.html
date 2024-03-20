@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}<link rel="stylesheet" href="{% static "./css/auth.css" %}"/>{% endblock css %}
+
+{% block content %}
+  <main class="main">
+    <div class="container-sm d">
+      <div class="custom-container shadow-3 d-flex align-items-center">
+        <div class="wrapper py-5 w-100">
+          <div class="d-flex justify-content-center pb-2">
+            <h2 class="fw-medium fs-4 mb-3">Login To Vehicle2Rent</h2>
+          </div>
+
+          <form action="{% url "user_login" %}" method="post">
+            {% csrf_token %}
+            <div class="mb-3">
+              <label for="email" class="form-label mb-1 fw-medium">Email</label>
+              <input type="email" required id="email" name="email" class="form-control" placeholder="johndoe@email.com "/>
+            </div>
+
+            <div className=" mb-3">
+              <label for="password" class="form-label mb-1 fw-medium">Password</label>
+              <input type="password" required id="password" name="password" class="form-control" placeholder="****************"/>
+            </div>
+
+            <button type="submit" class="justify-content-center btn w-100 mt-3 d-flex align-items-center fw-bolder shadow custom-btn">
+              <span class="text-white">Sign In</span>
+            </button>
+
+          </form>
+          <p class="no-acc"><a href="{% url "reset_password" %}">Forget Password</a></p>
+          <p class="no-acc">Don't have an account? <a href="{% url "create_user" %}">Create account</a></p>
+        </div>
+      </div>
+    </div>
+  </main>
+{% endblock content %}

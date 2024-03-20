@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+{% load static %}
+{% block css %}
+<link rel="stylesheet" href="{% static " ./css/auth.css" %}" />{% endblock css %}
+
+{% block content %}
+<main class="main">
+  <div class="container-sm">
+    <div class="custom-container">
+      <div class="wrapper py-5 w-100">
+        <div class="d-flex justify-content-center flex-column pb-2">
+          <!-- <GoBackButton /> -->
+          <h2 class="fw-medium fs-5">Registration</h2>
+          <p>Create an account to get the best out of Vehicle2Rent</p>
+        </div>
+
+        <form action="{% url 'create_user' %}" method="post" enctype="multipart/form-data">
+          {% csrf_token %}
+          <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+            <div class="">
+              <label for="firstName" class="form-label mb-1 fw-medium">First name</label>
+              <input type="text" id="firstName" name="firstName" class="form-control" placeholder="John" required />
+            </div>
+
+            <div class="">
+              <label for="lastName" class="form-label mb-1 fw-medium">Last name</label>
+              <input type="text" id="LastName" name="lastName" class="form-control" placeholder="Doe" required />
+            </div>
+          </div>
+
+          <div>
+            <div class="mb-3">
+              <label for="phoneNumber" class="form-label mb-1 fw-medium">Phone Number</label>
+              <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder=" +1234567890 "
+                required />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="document" class="form-label mb-1 fw-medium">Document Type</label>
+            <select name="document" id="document" class="form-control">
+              <option value="">Select Document Type</option>
+              <option value="Nin">Nin</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label for="formFile" class="form-label">Upload your drivers license</label>
+            <input class="form-control" type="file" id="formFile" />
+          </div>
+
+          <div class="mb-3">
+            <label for="email" class="form-label mb-1 fw-medium">Email</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="johndoe@email.com "
+              required />
+          </div>
+
+          <div class="mb-3">
+            <label for="phoneNumber" class="form-label mb-1 fw-medium">Password</label>
+            <input type="password" id="password" name="password" class="form-control" placeholder="****************"
+              required />
+          </div>
+
+          <div class="mb-3">
+            <label for="confirm-password" class="form-label mb-1 fw-medium"> Confirm Password</label>
+            <input type="password" id="confirm-password" name="confirm-password" class="form-control"
+              placeholder="****************" required />
+          </div>
+
+          <button type="submit"
+            class="justify-content-center btn w-100 mt-3 d-flex gap-2 align-items-center fw-bolder shadow custom-btn">
+            <span class="text-white">Create Account</span>
+          </button>
+
+        </form>
+        <p class="no-acc">Already have an account? <a href="{% url 'user_login' %}">Login</a></p>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}
