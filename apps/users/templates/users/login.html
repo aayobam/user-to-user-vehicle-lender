@@ -23,12 +23,16 @@
               <input type="password" required id="password" name="password" class="form-control" placeholder="****************"/>
             </div>
 
+            {% if request.GET.next %}
+              <input type="hidden" name="next" value="{{request.GET.next}}">
+            {% endif %}
+
             <button type="submit" class="justify-content-center btn w-100 mt-3 d-flex align-items-center fw-bolder shadow custom-btn">
               <span class="text-white">Sign In</span>
             </button>
 
           </form>
-          <p class="no-acc"><a href="{% url "reset_password" %}">Forget Password</a></p>
+          <p class="no-acc"><a href="">Forget Password</a></p>
           <p class="no-acc">Don't have an account? <a href="{% url "create_user" %}">Create account</a></p>
         </div>
       </div>

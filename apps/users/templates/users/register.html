@@ -38,7 +38,7 @@
 
           <div class="mb-3">
             <label for="document" class="form-label mb-1 fw-medium">Document Type</label>
-            <select name="document" id="document" class="form-control">
+            <select name="document_type" id="document" class="form-control" required>
               <option value="">Select Document Type</option>
               <option value="Nin">Nin</option>
             </select>
@@ -46,7 +46,10 @@
 
           <div class="mb-3">
             <label for="formFile" class="form-label">Upload your drivers license</label>
-            <input class="form-control" type="file" id="formFile" />
+            <input class="form-control" name="formFile" type="file" id="formFile" required/>
+            <small style="color: red">
+                files with (jpeg, png, jpg, pdf) formats only.
+            </small><br>
           </div>
 
           <div class="mb-3">
