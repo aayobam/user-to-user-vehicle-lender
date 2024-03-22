@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 from pathlib import Path
 import os
 from django.contrib.messages import constants as messages
+from django.urls import reverse_lazy
 import environ
 
 
@@ -135,6 +136,9 @@ TIME_ZONE = "UTC"
 USE_I18N = True
 
 USE_TZ = True
+
+LOGIN_URL = reverse_lazy('user_login')
+LOGOUT_REDIRECT_URL = reverse_lazy('user_login')
 
 # max value of uploaded file
 FILE_UPLOAD_MAX_MEMORY_SIZE = 3 * 1024 * 1024

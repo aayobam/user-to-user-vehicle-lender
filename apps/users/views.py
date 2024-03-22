@@ -1,10 +1,9 @@
 import mimetypes
-from django.shortcuts import get_object_or_404, redirect
+from django.shortcuts import redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib import messages
-from django.contrib.auth import login, logout, authenticate
-from django.contrib.auth.views import PasswordChangeView
+from django.contrib.auth import login, logout, authenticate, update_session_auth_hash
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.core.files.storage import FileSystemStorage
@@ -20,10 +19,9 @@ class RegisterUserView(generic.CreateView):
     fields = '__all__'
     template_name = "users/register.html"
 
-    def post(self, request):
-        allowed_content_types = ['application/pdf',
-                                 'image/jpeg', 'image/jpg', 'image/png']
-        user_data: dict = {
+    def post(self, request, *args, **kwargs):
+        allowed_content_types = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png']
+        user_data = {
             "first_name": request.POST.get("firstName"),
             "last_name": request.POST.get("lastName"),
             "phone_no": request.POST.get("phoneNumber"),
@@ -70,11 +68,7 @@ class RegisterUserView(generic.CreateView):
                 request, "invalid file  upload, only pdf, png, jpg, jpeg file types are accepted.")
             return redirect('create_user')
 
-        # if not Validators.validate_file_size(user_data.get("document")):
-        #     messages.error(
-        #         self.request, "invalid file  upload, only pdf, png, jpg, jpeg file types are accepted.")
-        #     return redirect("create_user")
-        user = self.model.objects.create(**user_data)
+        user: CustomUser = self.model.objects.create(**user_data)
         user.set_password(user_data.get("password"))
         user.save()
         messages.success(self.request, "registration successful.")
@@ -160,16 +154,35 @@ class UserLogoutView(generic.TemplateView):
         return redirect('user_login')
 
 
-class CustomChangePasswordView(LoginRequiredMixin, PasswordChangeView):
-    queryset = CustomUser.objects.all()
+class ChangePasswordView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'users/change_password.html'
     success_url = reverse_lazy("user_profile")
 
-    def form_valid(self, form):
-        messages.success(self.request, "password change successful.")
-        return super().form_valid(form)
+    def post(self, request, *args, **kwargs):
+        old_password: str = request.POST.get("old_password")
+        new_password1: str = request.POST.get('new_password1')
+        new_password2: str = request.POST.get('new_password2')
 
-    def form_invalid(self, form):
-        messages.error(
-            self.request, "could not change password, please try again.")
-        return super().form_invalid(form)
+        user: CustomUser = request.user
+
+        if not user.check_password(old_password):
+            messages.warning(request, "old password doesn't match.")
+            return redirect("change_password")
+
+        if len(new_password1) < 10:
+            messages.warning(request, "password length should not be less than 10.")
+            return redirect("change_password")
+
+        if old_password == new_password1:
+            messages.warning(request, "your new password cannot be the same as your old password.")
+            return redirect("change_password")
+
+        if new_password1 != new_password2:
+            messages.warning(request, "new_password1 and new_password2 do not match.")
+            return redirect("change_password")
+
+        user.set_password(new_password1)
+        user.save()
+        update_session_auth_hash(request, user)
+        messages.success(request, "password change successfull. your new password would take effect on next login.")
+        return redirect("user_profile")
