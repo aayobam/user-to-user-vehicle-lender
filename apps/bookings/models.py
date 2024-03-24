@@ -9,7 +9,7 @@ from apps.vehicles.models import Vehicle
 
 class Booking(BaseModel):
     vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
-    renter = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
+    renter = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
     renter_driver_license = models.FileField(blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()

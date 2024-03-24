@@ -16,6 +16,7 @@ class CustomUser(BaseModel, PermissionsMixin, AbstractBaseUser):
     phone_no = models.CharField(max_length=50, blank=True)
     document_type = models.CharField(max_length=100, choices=choices.DOCUMENT_TYPES)
     document = models.FileField(upload_to="documents/", help_text=_("upload a legal document that truely identifies you for verification."), blank=True, null=True)
+    profile_picture = models.ImageField(upload_to="profile_picture/", default="images/dummy.png")
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)

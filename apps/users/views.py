@@ -8,6 +8,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.core.files.storage import FileSystemStorage
 from core.settings import FILE_UPLOAD_MAX_MEMORY_SIZE
+from apps.common import choices
 from .models import CustomUser
 from apps.common.utils import Validators
 from .mixings import is_authenticated
@@ -20,7 +21,8 @@ class RegisterUserView(generic.CreateView):
     template_name = "users/register.html"
 
     def post(self, request, *args, **kwargs):
-        allowed_content_types = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png']
+        allowed_content_types = ['application/pdf',
+                                 'image/jpeg', 'image/jpg', 'image/png']
         user_data = {
             "first_name": request.POST.get("firstName"),
             "last_name": request.POST.get("lastName"),
@@ -78,6 +80,11 @@ class RegisterUserView(generic.CreateView):
         if self.model.objects.filter(email=email).exists():
             return False
         return True
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["DOCUMENT_TYPES"] = choices.DOCUMENT_TYPES
+        return context
 
 
 class UserProfileView(LoginRequiredMixin, generic.UpdateView):
@@ -170,19 +177,23 @@ class ChangePasswordView(LoginRequiredMixin, generic.TemplateView):
             return redirect("change_password")
 
         if len(new_password1) < 10:
-            messages.warning(request, "password length should not be less than 10.")
+            messages.warning(
+                request, "password length should not be less than 10.")
             return redirect("change_password")
 
         if old_password == new_password1:
-            messages.warning(request, "your new password cannot be the same as your old password.")
+            messages.warning(
+                request, "your new password cannot be the same as your old password.")
             return redirect("change_password")
 
         if new_password1 != new_password2:
-            messages.warning(request, "new_password1 and new_password2 do not match.")
+            messages.warning(
+                request, "new_password1 and new_password2 do not match.")
             return redirect("change_password")
 
         user.set_password(new_password1)
         user.save()
         update_session_auth_hash(request, user)
-        messages.success(request, "password change successfull. your new password would take effect on next login.")
+        messages.success(
+            request, "password change successfull. your new password would take effect on next login.")
         return redirect("user_profile")

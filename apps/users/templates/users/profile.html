@@ -23,7 +23,7 @@
                     <div class="bg-white rounded-5 shadow-lg py-5">
                         <div class="d-flex justify-content-center flex-column align-items-center">
                             <div class="user-avater p-2 d-flex align-items-center justify-content-center shadow-lg">
-                                <img src="./media/images/User-avatar.svg.png" class="img-fluid" alt=""/>
+                                <img src="{{ user.profile_picture.url }}" class="img-fluid" alt=""/>
                             </div>
                             <div class="flex-column d-flex align-items-center justify-content-center">
                                 <h5 class="fw-semibold fs-5 mb-0">{{ user.get_full_name }}</h5>
@@ -112,10 +112,10 @@
                                 </div>
                             </div>
 
-                            {% comment %} <div class="mb-3">
+                            <div class="mb-3">
                                 <label for="userName" class="form-label mb-1 fw-medium">Upload profile picture</label>
                                 <input class="form-control" type="file" id="formFile" />
-                            </div> {% endcomment %}
+                            </div>
 
                             <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
                                 <div class="">

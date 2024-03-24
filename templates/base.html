@@ -64,13 +64,10 @@
               <a class="navbar-brand d-none d-lg-block fw-bold fs-4 me-auto" href="/">Vehicle2Rent</a>
               <ul class="navbar-nav mb-2 fw-medium fs-5 mb-lg-0">
                 <li class="nav-item">
-                  <a class="nav-link active" aria-current="page" href="/dashboard.html">Home</a>
+                  <a class="nav-link active" aria-current="page" href="{% url "home" %}">Home</a>
                 </li>
                 <li class="nav-item">
                   <a class="nav-link" href="{% url "about" %}">About </a>
-                </li>
-                <li class="nav-item">
-                  <a class="nav-link" href="{% url "home" %}">Available Cars</a>
                 </li>
                 <li class="nav-item">
                   <a class="btn btn-outline-warning text-black fw-medium py-2 px-4" href="{% url "user_login" %}">Get Started</a>

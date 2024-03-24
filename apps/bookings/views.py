@@ -7,31 +7,25 @@ from apps.bookings.mixins import BookingMixing
 from apps.bookings.models import Booking
 
 
-class BookVehicleView(LoginRequiredMixin, generic.CreateView):
+class BookVehicleView(LoginRequiredMixin, generic.CreateView, generic.DetailView):
     model = Booking
-    fields = ['vehicle', 'start_date', 'end_date']
+    fields = "__all__"
     template_name = 'bookings/book_vehicle.html'
     queryset = Booking.objects.select_related("vehicle", "renter").all()
     success_url = reverse_lazy("bookings")
 
     def post(self, request, *args, **kwargs):
-        return super().post(request, *args, **kwargs)
-
-    def form_valid(self, form):
-        form.instance.renter = self.reuqest.user
-        form.instance.driver_licence = self.request.user.document.url
-        if not self.is_booking_available(form.instance.vehicle, form.instance.start_date, form.instance.end_date):
+        instance = self.get_object()
+        
+        if not self.is_booking_available(instance.vehicle, instance.start_date, instance.end_date):
             messages.info(self.request, "bookings not available, please select a different date or check other vehicles.")
             return redirect('available_vehicles')
-        if not self.cannot_book_own_listing(form.instance):
+
+        if not self.cannot_book_own_listing(instance):
             messages.info(self.request, "you cannot rent your own vehicle listing(s).")
             return redirect('available_vehicles')
-        messages.success(self.request, "booking successfull.")
-        return super().form_valid(form)
 
-    def form_invalid(self, form):
-        messages.error(self.request, "booking unsuccessful, please try again or book another vehicle.")
-        return super().form_invalid(form)
+        messages.success(self.request, "booking successfull.")
 
     def is_booking_available(self, vehicle, start_date, end_date):
         bookings = Booking.objects.filter(vehicle=vehicle)
@@ -39,8 +33,8 @@ class BookVehicleView(LoginRequiredMixin, generic.CreateView):
             if not (end_date < booking.start_date or start_date > booking.end_date):
                 return False
         return True
-    
-    def cannot_book_own_listing(booking:Booking):
+
+    def cannot_book_own_listing(booking: Booking):
         if booking.renter == booking.vehicle.owner:
             return False
         return True

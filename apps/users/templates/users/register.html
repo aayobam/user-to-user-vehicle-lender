@@ -28,20 +28,25 @@
             </div>
           </div>
 
-          <div>
+          <div class="mt-5">
             <div class="mb-3">
               <label for="phoneNumber" class="form-label mb-1 fw-medium">Phone Number</label>
-              <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder=" +1234567890 "
-                required />
+              <input type="text" id="phoneNumber" name="phoneNumber" class="form-control" placeholder="+1234567890"required />
             </div>
           </div>
 
           <div class="mb-3">
             <label for="document" class="form-label mb-1 fw-medium">Document Type</label>
-            <select name="document_type" id="document" class="form-control" required>
-              <option value="">Select Document Type</option>
-              <option value="Nin">Nin</option>
-            </select>
+             
+              <select name="document_type" id="document" class="form-control" required>
+                {% for document_type, label in DOCUMENT_TYPES %}
+                  <option value="{{ document_type }}">{{ label }}</option>
+                {% endfor %}
+              </select>
+
+             {% for value, label in VEHICLE_MAKES %}
+                <option value="{{ value }}">{{ label }}</option>
+              {% endfor %}
           </div>
 
           <div class="mb-3">
@@ -54,8 +59,7 @@
 
           <div class="mb-3">
             <label for="email" class="form-label mb-1 fw-medium">Email</label>
-            <input type="email" id="email" name="email" class="form-control" placeholder="johndoe@email.com "
-              required />
+            <input type="email" id="email" name="email" class="form-control" placeholder="johndoe@email.com"required />
           </div>
 
           <div class="mb-3">
