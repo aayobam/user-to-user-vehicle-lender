@@ -1,256 +1,190 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+{% extends "dashboard.html" %}
 
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
-      rel="stylesheet"
-    />
-    <link
-      rel="stylesheet"
-      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
-    />
-    <link rel="stylesheet" href="./asset/css/index.css" />
-    <link rel="stylesheet" href="./asset/css/dashboard.css" />
 
-    <title>Car Rental</title>
-  </head>
-  <body>
-    <header>
-      <nav class="navbar navbar-expand-lg bg-body-tertiary">
-        <div class="container-sm">
-          <a
-            class="navbar-brand logo d-block d-lg-none fw-bold fs-4"
-            href="/dashboard.html"
-            >Cab2Rent</a
-          >
-          <button
-            class="navbar-toggler"
-            type="button"
-            data-bs-toggle="collapse"
-            data-bs-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent"
-            aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <a
-              class="navbar-brand d-none d-lg-block fw-bold fs-4 me-auto"
-              href="/index.html"
-              >Cab2Rent</a
-            >
-            <ul class="navbar-nav mb-2 fw-medium fs-5 mb-lg-0">
-              <li class="nav-item">
-                <a
-                  class="nav-link active"
-                  aria-current="page"
-                  href="/index.html"
-                  >Home</a
-                >
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/about.html">About </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="/all-cars.html">Available Cars</a>
-              </li>
-              <li class="nav-item">
-                <a
-                  class="btn btn-outline-warning text-black fw-medium py-2 px-4"
-                  href="/login.html"
-                >
-                  Get Started</a
-                >
-              </li>
-            </ul>
-          </div>
-        </div>
-      </nav>
-    </header>
+{% block cotnent %}
+  <body class="overflow-x-hidden">
     <main class="d-flex">
-      <!-- DASHBOARD SIDEBAR ON A LARGE SCREEN -->
-      <aside
-        class="col-2 border-end border-4 position-fixed z-2 d-none d-md-block"
-      >
-        <nav class="nav flex-column align-items-center justify-content-center">
-          <ul class="navbar-nav text-black my-5">
-            <li class="nav-item fw-bold border-2 border-bottom pt-3">
-              <a
-                class="nav-link active d-flex flex-column align-items-center justify-content-center"
-                aria-current="page"
-                href="/dashboard.html"
-              >
-                <div>
-                  <i class="bi bi-speedometer2 fs-3"></i>
-                </div>
-                <span> Dashboard </span>
-              </a>
-            </li>
-            <li class="nav-item fw-bold border-2 border-bottom pt-3">
-              <a
-                class="nav-link d-flex flex-column align-items-center justify-content-center"
-                href="/change-password.html"
-              >
-                <div>
-                  <i class="bi bi-shield-lock-fill fs-3"></i>
-                </div>
-                <span> change password </span>
-              </a>
-            </li>
-            <li class="nav-item fw-bold border-2 border-bottom pt-3">
-              <a
-                class="nav-link d-flex flex-column align-items-center justify-content-center"
-                href="/my-listings.html"
-              >
-                <div>
-                  <i class="bi bi-view-list fs-3"></i>
-                </div>
-                <span> My Listing </span>
-              </a>
-            </li>
-            <li class="nav-item fw-bold border-2 border-bottom pt-3">
-              <a
-                class="nav-link d-flex flex-column align-items-center justify-content-center"
-                href="/my-bookings.html"
-              >
-                <div>
-                  <i class="bi bi-journal-album fs-3"></i>
-                </div>
-                <span> My Bookings </span>
-              </a>
-            </li>
-            <li
-              class="nav-item d-flex align-items-center justify-content-center fw-bold border-2 border-bottom pt-3"
-            >
-              <button
-                class="nav-link d-flex flex-column align-items-center justify-content-center"
-              >
-                <div>
-                  <i class="bi bi-box-arrow-right fs-3"></i>
-                </div>
-                <span> Log out </span>
-              </button>
-            </li>
-          </ul>
-        </nav>
-      </aside>
 
       <div class="col-2 d-none d-md-block"></div>
 
       <div class="col-12 col-md-9 mx-auto">
         <!-- DASHBOARD SIDEBAR OFF CANVAS FOR SMALLER SCREEN TOGGLER-->
-        <div class="d-md-none col-6 col-sm-4 ms-2 my-2">
-          <button
-            class="rounded-4 fw-bold border py-2 px-3 border-white d-flex align-items-center gap-1"
-            type="button"
-            data-bs-toggle="offcanvas"
-            data-bs-target="#offcanvasExample"
-            aria-controls="offcanvasExample"
-          >
-            <span>
-              <i class="bi bi-menu-button-wide fs-3"></i>
-            </span>
-            <span> Dashboard </span>
-          </button>
-        </div>
+        
 
-        <!-- MOBILE DASHBOARD MENU -->
-        <div
-          class="offcanvas offcanvas-start d-md-none"
-          tabindex="-1"
-          id="offcanvasExample"
-          aria-labelledby="offcanvasExampleLabel"
-        >
-          <div class="offcanvas-header">
-            <!-- <h5 class="offcanvas-title" id="offcanvasExampleLabel">Offcanvas</h5> -->
-            <button
-              type="button"
-              class="btn-close"
-              data-bs-dismiss="offcanvas"
-              aria-label="Close"
-            ></button>
-          </div>
-          <div class="offcanvas-body">
-            <nav
-              class="nav flex-column align-items-center justify-content-center"
-            >
-              <ul class="navbar-nav text-black my-5">
-                <li class="nav-item fw-bold border-2 border-bottom pt-3">
-                  <a
-                    class="nav-link active d-flex flex-column align-items-center justify-content-center"
-                    aria-current="page"
-                    href="/dashboard.html"
-                  >
-                    <div>
-                      <i class="bi bi-speedometer2 fs-3"></i>
-                    </div>
-                    <span> Dashboard </span>
-                  </a>
-                </li>
-                <li class="nav-item fw-bold border-2 border-bottom pt-3">
-                  <a
-                    class="nav-link d-flex flex-column align-items-center justify-content-center"
-                    href="/change-password.html"
-                  >
-                    <div>
-                      <i class="bi bi-shield-lock-fill fs-3"></i>
-                    </div>
-                    <span> change password </span>
-                  </a>
-                </li>
-                <li class="nav-item fw-bold border-2 border-bottom pt-3">
-                  <a
-                    class="nav-link d-flex flex-column align-items-center justify-content-center"
-                    href="/my-listings.html"
-                  >
-                    <div>
-                      <i class="bi bi-view-list fs-3"></i>
-                    </div>
-                    <span> My Listing </span>
-                  </a>
-                </li>
-                <li class="nav-item fw-bold border-2 border-bottom pt-3">
-                  <a
-                    class="nav-link d-flex flex-column align-items-center justify-content-center"
-                    href="/my-bookings.html"
-                  >
-                    <div>
-                      <i class="bi bi-journal-album fs-3"></i>
-                    </div>
-                    <span> My Bookings </span>
-                  </a>
-                </li>
-                <li
-                  class="nav-item d-flex align-items-center justify-content-center fw-bold border-2 border-bottom pt-3"
-                >
-                  <button
-                    class="nav-link d-flex flex-column align-items-center justify-content-center"
-                  >
-                    <div>
-                      <i class="bi bi-box-arrow-right fs-3"></i>
-                    </div>
-                    <span> Log out </span>
-                  </button>
-                </li>
-              </ul>
-            </nav>
+        <!-- Main content comes here -->
+        <div class="d-flex justify-content-center py-4">
+          <div class="bg-light rounded-5 shadow-lg py-3 px-3 w-100 table-responsive-lg">
+            <table class="table table-light">
+              <caption class="fw-bold fs-5 caption-top">All Bookings</caption>
+
+              <thead>
+                <tr>
+                  <th scope="col">Ref</th>
+                  <th scope="col">Car</th>
+                  <th scope="col">Listed By</th>
+                  <th scope="col">Date Booked</th>
+                  <th scope="col">Start Date</th>
+                  <th scope="col">End Date</th>
+
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <th>Spider</th>
+                  <td>Mark</td>
+                  <td>22/3/2024</td>
+                  <td>22/3/2024</td>
+                  <td>26/3/2024</td>
+
+                  <td class="d-flex gap-1">
+                    <span
+                      class="bg-warning rounded-pill d-inline-block py-1 px-3"
+                      ><a
+                        href="/edit-booking.html"
+                        class="text-white text-decoration-none"
+                        >Edit</a
+                      ></span
+                    >
+
+                    <!-- Button trigger modal -->
+                    <button
+                      type="button"
+                      class="text-white rounded-pill border-0 d-inline-block py-1 px-3 bg-primary d-inline-block"
+                      data-bs-toggle="modal"
+                      data-bs-target="#exampleModal"
+                    >
+                      View
+                    </button>
+
+                    <span
+                      class="bg-danger text-white rounded-pill d-inline-block py-1 px-3"
+                      ><a href="" class="text-white text-decoration-none">
+                        Cancel</a
+                      ></span
+                    >
+                  </td>
+                </tr>
+                <tr>
+                  <th scope="row">2</th>
+                  <th>IVM</th>
+                  <td>John</td>
+                  <td>21/3/2024</td>
+                  <td>21/3/2024</td>
+                  <td>26/3/2024</td>
+
+                  <td class="d-flex gap-1">
+                    <span class="bg-warning rounded-pill d-inline-block py-1 px-3">
+                      <a href="" class="text-white text-decoration-none">Edit</a>
+                    </span>
+
+                    <!-- Button trigger modal -->
+                    <button type="button" class="text-white rounded-pill border-0 d-inline-block py-1 px-3 bg-primary d-inline-block" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button>
+
+                    <span
+                      class="bg-danger text-white rounded-pill d-inline-block py-1 px-3">
+                      <a href="" class="text-white text-decoration-none">Cancel</a>
+                    </span >
+                  </td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
-
-        <!-- MAIN content comes here -->
-        <div>my booking</div>
       </div>
     </main>
 
+    <!-- Modal For transactions detail -->
+    <div
+      class="modal fade"
+      id="exampleModal"
+      tabindex="-1"
+      aria-labelledby="exampleModalLabel"
+      aria-hidden="true"
+    >
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header align-items-start">
+            <div class="modal-title" id="exampleModalLabel">
+              <h1 class="fs-5">Ref:: 2</h1>
+              <p>Car:: <span class="fw-semibold">Spider</span></p>
+            </div>
+            <button
+              type="button"
+              class="btn-close"
+              data-bs-dismiss="modal"
+              aria-label="Close"
+            ></button>
+          </div>
+          <div class="modal-body">
+            <div
+              class="d-flex img-wrapper align-items-center justify-content-center rounded-5 overflow-hidden shadow"
+            >
+              <img
+                src="./asset/images/hero.webp"
+                class="img-fluid h-100"
+                alt=""
+              />
+            </div>
+            <div class="pt-3">
+              <h4>Transaction Details</h4>
+              <div class="d-flex gap-2">
+                <p class="fs-5 fw-medium">Listed By:</p>
+                <p class="fs-5">John Doe</p>
+              </div>
+              <div class="d-flex gap-2">
+                <p class="fs-5 fw-medium">Price:</p>
+                <p class="fs-5">$40/day</p>
+              </div>
+              <div class="d-flex gap-2">
+                <p class="fs-5 fw-medium">Booked On:</p>
+                <p class="fs-5">3/3/2025</p>
+              </div>
+              <div class="d-flex gap-2">
+                <p class="fs-5 fw-medium">Duration:</p>
+                <p class="fs-5">3 days</p>
+              </div>
+              <hr />
+              <div class="d-flex gap-2">
+                <p class="fs-5 fw-medium">Total:</p>
+                <p class="fs-5 price fw-medium">$120</p>
+              </div>
+            </div>
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              data-bs-dismiss="modal"
+            >
+              Close
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <footer class="py-5 bg-secondary text-white">
+      <div class="container-sm">
+        <div class="">
+          <h4 class="special fw-medium fs-4">Cab2Rent</h4>
+          <p>
+            Revolutionizing the car rental and booking industry by leveraging
+            the power of peer-to-peer (P2P)
+          </p>
+        </div>
+      </div>
+      <hr />
+      <div class="container-sm">
+        <p>
+          &copy; 2024 <span class="special fw-medium fs-5">Cab2Rent</span>. All
+          rights reserved.
+        </p>
+      </div>
+    </footer>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="./js/script.js"></script>
   </body>
 </html>
+{% endblock cotnent %}

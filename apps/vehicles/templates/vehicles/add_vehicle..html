@@ -1,0 +1,213 @@
+
+{% extends "dashboard.html" %}
+{% load static %}
+
+{% block content %}
+  <body class="border-3">
+    <main class="d-flex">
+
+      <div class="col-2 d-none d-md-block"></div>
+
+      <div class="col-12 col-md-9 mx-auto password">
+        <!-- main content -->
+        <div class="p-3">
+          <div class="container-sm">
+            <div class="d-grid col-12 col-md-10 col-lg-7 mx-auto py-5">
+              <div class="bg-white rounded-5 shadow-lg py-5 px-5">
+                <h4 class="fw-semibold text-center pt-3 pb-5">List Your Car</h4>
+                <form action="{% url "add_vehicle" %}" enctype="multipart/form-data">
+                  <!-- Email of the user, this will be prefix from the user data -->
+                  <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+                    <div class="">
+                      <label for="car-name" class="form-label mb-1 fw-medium">Car Name</label>
+                      <input type="text" id="car-name" name="car-name" class="form-control" placeholder="Avalon" required />
+                    </div>
+
+                    <div class="">
+                      <label for="car-modal" class="form-label mb-1 fw-medium">Car modal</label>
+                      <input type="text" id="car-modal" name="car-modal" class="form-control" placeholder="2024 " required />
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="formfile" class="form-label mb-1 fw-medium">Upload Car</label>
+                    <input class="form-control" type="file" id="formFile" />
+                  </div>
+
+                  <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+                    <div>
+                      <label for="car-make" class="form-label mb-1 fw-medium">Car Make</label>
+                      <select class="form-select" id="car-make" aria-label="Default select example" >
+                        <option selected>Select Car Make</option>
+                        <option value="Toyota">Toyota</option>
+                        <option value="Honda">Honda</option>
+                        <option value="Benz">Benz</option>
+                        <option value="BMW">BMW</option>
+                      </select>
+                    </div>
+                    
+                    <div>
+                      <label for="car-type" class="form-label mb-1 fw-medium">Car Type</label>
+                      <select class="form-select" aria-label="Default select example" id="car-type" >
+                        <option selected>Select Car Make</option>
+                        <option value="Car">Car</option>
+                        <option value="Bus">Bus</option>
+                        <option value="Lorry">Lorry</option>
+                      </select>
+                    </div>
+
+                  </div>
+                  <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+                    <div class="">
+                      <label for="car-price" class="form-label mb-1 fw-medium">
+                        Car Price per Day
+                      </label>
+                      <input
+                        type="text"
+                        id="car-price"
+                        name="car-price"
+                        class="form-control"
+                        placeholder="$45"
+                        required
+                      />
+                    </div>
+                    <div class="">
+                      <label
+                        for="pickup-location"
+                        class="form-label mb-1 fw-medium"
+                      >
+                        Pick Up Location
+                      </label>
+                      <input
+                        type="text"
+                        id="pickup-location"
+                        name="pickup-location"
+                        class="form-control"
+                        placeholder="123 my street "
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+                    <div class="">
+                      <label for="max-speed" class="form-label mb-1 fw-medium">
+                        Max. Speed
+                      </label>
+                      <input
+                        type="text"
+                        id="max-speed"
+                        name="max-speed"
+                        class="form-control"
+                        placeholder="23.45 km/hr"
+                        required
+                      />
+                    </div>
+                    <div class="">
+                      <label
+                        for="engine-capacity"
+                        class="form-label mb-1 fw-medium"
+                      >
+                        Engine Capacity
+                      </label>
+                      <input
+                        type="text"
+                        id="engine-capacity"
+                        name="engine-capacity"
+                        class="form-control"
+                        placeholder="1000 Cc"
+                        required
+                      />
+                    </div>
+                  </div>
+                  <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+                    <div class="">
+                      <label for="no-door" class="form-label mb-1 fw-medium">
+                        Number of doors
+                      </label>
+                      <input
+                        type="number"
+                        min="1"
+                        id="no-door"
+                        name="no-door"
+                        class="form-control"
+                        placeholder="2"
+                        required
+                      />
+                    </div>
+                    <div class="">
+                      <label
+                        for="sit-capacity"
+                        class="form-label mb-1 fw-medium"
+                      >
+                        Sit Capacity
+                      </label>
+                      <input
+                        type="number"
+                        min="1"
+                        id="sit-capacity"
+                        name="sit-capacity"
+                        class="form-control"
+                        placeholder="4"
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+                    <div>
+                      <label for="gear-type" class="form-label mb-1 fw-medium">
+                        Gear Type
+                      </label>
+                      <select
+                        class="form-select"
+                        id="gear-type"
+                        aria-label="Default select example"
+                      >
+                        <option selected>Select Gear Type</option>
+                        <option value="Manual">Manual</option>
+                        <option value="Automatic">Automatic</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label for="temp" class="form-label mb-1 fw-medium">
+                        Temperature Regulator
+                      </label>
+                      <select
+                        class="form-select"
+                        aria-label="Default select example"
+                        id="temp"
+                      >
+                        <option selected>Select Temperature</option>
+                        <option value="Air conditioning">
+                          Air conditioning
+                        </option>
+                        <option value="Climate control">Climate control</option>
+                        <option value="none">none</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="userName" class="form-label mb-1 fw-medium">
+                      Car Description
+                    </label>
+                    <textarea
+                      class="form-control"
+                      placeholder="Description..."
+                    ></textarea>
+                  </div>
+                  <button
+                    type="button"
+                    class="justify-content-center btn w-100 mt-3 d-flex gap-2 align-items-center fw-bolder shadow custom-btn"
+                  >
+                    <span class="text-white">Submit</span>
+                  </button>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+{% endblock content %}

@@ -16,13 +16,15 @@ class BookVehicleView(LoginRequiredMixin, generic.CreateView, generic.DetailView
 
     def post(self, request, *args, **kwargs):
         instance = self.get_object()
-        
+
         if not self.is_booking_available(instance.vehicle, instance.start_date, instance.end_date):
-            messages.info(self.request, "bookings not available, please select a different date or check other vehicles.")
+            messages.info(
+                self.request, "bookings not available, please select a different date or check other vehicles.")
             return redirect('available_vehicles')
 
         if not self.cannot_book_own_listing(instance):
-            messages.info(self.request, "you cannot rent your own vehicle listing(s).")
+            messages.info(
+                self.request, "you cannot rent your own vehicle listing(s).")
             return redirect('available_vehicles')
 
         messages.success(self.request, "booking successfull.")
@@ -41,7 +43,7 @@ class BookVehicleView(LoginRequiredMixin, generic.CreateView, generic.DetailView
 
 
 class UserBookingsListView(LoginRequiredMixin, BookingMixing, generic.ListView):
-    queryset = Booking.objects.select_related("vehicle", "renter").all()
-    template_name = "bookings/user_bookings.html"
+    model = Booking
+    fields = "__all__"
+    template_name = "bookings/my_bookings.html"
     context_object_name = "bookings"
-    permission_denied_message = "you do not have permission to view this page."

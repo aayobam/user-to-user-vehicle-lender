@@ -1,0 +1,68 @@
+{% extends "dashboard.html" %}
+
+{% block content %}
+  <body class="overflow-x-hidden">
+    <main class="d-flex">
+
+      <div class="col-2 d-none d-md-block"></div>
+
+      <div class="col-12 col-md-9 mx-auto">
+        <!-- Main content comes here -->
+        <div class="d-flex justify-content-center py-4">
+          <div
+            class="bg-light rounded-5 shadow-lg py-3 px-3 w-100 table-responsive-lg"
+          >
+            <table class="table table-light">
+              <caption class="fw-bold fs-5 caption-top">Car Listings</caption>
+
+              <thead>
+                <tr>
+                  <th scope="col">Ref</th>
+                  <th scope="col">Car Name</th>
+                  <th scope="col">Date Listed</th>
+                  <th scope="col">Bookings</th>
+                  <th scope="col">Status</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <th scope="row">1</th>
+                  <td>Avalon</td>
+                  <td>21/2/2024</td>
+                  <td>5</td>
+                  <td>Booked</td>
+                  <td class="d-flex gap-1">
+                    <span class="bg-warning rounded-pill d-inline-block py-1 px-3">
+                      <a href="/edit-car-listing.html" class="text-white text-decoration-none" >Update</a ></span>
+                      <span class="bg-danger text-white rounded-pill d-inline-block py-1 px-3">
+                      <a href="" class="text-white text-decoration-none">Delete</a>
+                    </span>
+                  </td>
+                </tr>
+
+                <tr>
+                  <th scope="row">2</th>
+                  <td>Avalon</td>
+                  <td>21/2/2024</td>
+                  <td>5</td>
+                  <td>Active</td>
+                  <td class="d-flex gap-1">
+                    <span
+                      class="bg-warning rounded-pill d-inline-block py-1 px-3">
+                      <a href="/edit-car-listing.html" class="text-white text-decoration-none" >Update</a >
+                    </span>
+
+                    <span class="bg-danger text-white rounded-pill d-inline-block py-1 px-3">
+                      <a href="" class="text-white text-decoration-none">Delete</a>
+                    </span>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </main>
+  </body>
+{% endblock content %}

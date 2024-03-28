@@ -1,0 +1,150 @@
+{% extends "base.html" %}
+
+
+{% block content %}
+    <main>
+      <div class="container-sm">
+        <div class="col">
+          <!-- Rental product -->
+          <div class="bg-white rounded-3 shadow p-4">
+            <!-- Rental Image -->
+            <div class="rental-deal__img-wrapper d-flex align-items-center justify-content-center" >
+              <img src="./media/images/avalon.png" class="img-fluid h-100" alt="" />
+            </div>
+
+            <!--  -->
+            <div class="mt-3">
+              <div class="d-md-flex justify-content-between">
+                <h5 class="fw-medium fs-2">Toyota-Avalon</h5>
+                <div class="py-2 py-md-0">
+                  <a href="/booking.html" class="btn d-inline-block custom-btn text-white fs-3" >
+                    <span class="d-inline-block me-3">Rent Now</span>
+                    <span><i class="bi bi-arrow-right"></i></span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="py-3">
+                <div>
+                  <span class="fw-medium fs-4">Listed By::</span>
+                  <span class="fs-5">John Doe</span>
+                </div>
+              </div>
+
+              <div class="py-3">
+                <div>
+                  <span class="fw-medium fs-4">Pick Up Location::</span>
+                  <span class="fs-5">12 street </span>
+                </div>
+              </div>
+              <hr class="bg-secondary" />
+
+              <!-- PRICE AND MAX SPEED OF THE CAR -->
+
+              <div class="py-3">
+                <div class="d-flex align-items-center my-3 justify-content-between text-secondary fs-4" >
+                  <div>
+                    <span class="fw-medium text-black">Max.speed</span>
+                  </div>
+
+                  <div>
+                    <span class="">23.45 km/hr</span>
+                  </div>
+                </div>
+
+                <div class="d-flex align-items-center my-3 justify-content-between text-secondary fs-3" >
+                  <div>
+                    <span class="fw-medium">Price</span>
+                  </div>
+
+                  <div>
+                    <span class="fw-medium text-black">$2,000</span>
+                    <span class="">/day</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- The Little details -->
+              <div class="border border-2 p-2">
+                <h3 class="fw-medium fs3">Other Details</h3>
+                <div class="d-flex align-items-center my-3 justify-content-between text-secondary fs-5 fs-md-4" >
+                  <div>
+                    <span class="icomoon-free--make-group"></span>
+                    <span>Toyota</span>
+                  </div>
+
+                  <div>
+                    <span class="iconamoon--type-bold"></span>
+                    <span>SEDAN</span>
+                  </div>
+
+                </div>
+                <div class="d-flex align-items-center my-3 justify-content-between text-secondary fs-5 fs-md-4" >
+                  <div>
+                    <span><i class="bi bi-person"></i></span>
+                    <span>2 Passenger</span>
+                  </div>
+
+                  <div>
+                    <span class="icon-park-solid--manual-gear"></span>
+                    <span>Auto</span>
+                  </div>
+                </div>
+                <div class="d-flex my-3 align-items-center justify-content-between text-secondary fs-5 fs-md-4" >
+                  <div>
+                    <span
+                      class="streamline--interface-weather-snow-flake-winter-freeze-snow-freezing-ice-cold-weather-snowflake">
+                    </span>
+                    <span>Air conditioning</span>
+                  </div>
+
+                  <div>
+                    <span class="mdi--car-door"></span>
+                    <span>2 Doors</span>
+                  </div>
+                </div>
+                <div class="d-flex my-3 align-items-center justify-content-between text-secondary fs-5 fs-md-4">
+                  <div>
+                    <span class="maki--fuel"></span>
+                    <span> Petrol, Gas</span>
+                  </div>
+
+                  <div>
+                    <span class="mingcute--engine-fill"></span>
+                    <span>1000 Cc</span>
+                  </div>
+
+                </div>
+              </div>
+              <hr class="bg-secondary" />
+            </div>
+            <div class="border border-2 p-2">
+              <h3 class="fw-medium py-1">Car Description</h3>
+              <hr class="bg-secondary" />
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
+                quaerat optio deserunt similique cupiditate expedita impedit
+                eligendi sequi excepturi dolorem a quasi, molestias ullam
+                nostrum deleniti, officia quidem aspernatur error exercitationem
+                dicta repellat. Fugit odio numquam ipsum quo repudiandae labore
+                repellendus blanditiis ratione sequi, nemo perspiciatis saepe
+                laudantium sapiente officia cumque laboriosam non asperiores.
+                Autem sit expedita tempore ipsam doloribus maxime quidem
+                nesciunt eos eaque. Suscipit nihil accusantium soluta aperiam
+                quod numquam! Mollitia et recusandae numquam quia cupiditate
+                magnam corrupti quibusdam, distinctio, fugit ad iure id. Iusto,
+                cum id mollitia natus modi cumque magnam itaque sit tempora
+                necessitatibus quaerat reprehenderit.
+              </p>
+            </div>
+            <div class="my-3">
+              <a href="{% url "book_vehicle" %}" class="btn custom-btn text-white fs-3"
+                ><span class="d-inline-block me-3">Rent Now</span
+                ><span><i class="bi bi-arrow-right"></i></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+{% endblock content %}

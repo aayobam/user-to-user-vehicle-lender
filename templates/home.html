@@ -137,7 +137,7 @@
                   </div>
                 </div>
                 <div>
-                  <a href="/" class="btn d-block custom-btn text-white fs-3"><span class="d-inline-block me-3">Rent
+                  <a href="{{ vehicle.get_absolute_url }}" class="btn d-block custom-btn text-white fs-3"><span class="d-inline-block me-3">Rent
                       Now</span><span><i class="bi bi-arrow-right"></i></span>
                   </a>
                 </div>
@@ -299,11 +299,6 @@
               {% endif %}
           </span>
         </div> {% endcomment %}
-
-        <a href="/" class="rounded d-block sub-heading fs-3 py-2 px-4 text-decoration-none"><span
-            class="d-inline-block me-3">Show More</span>
-          <span><i class="bi bi-arrow-down"></i></span>
-        </a>
       </div>
     </div>
   </section>

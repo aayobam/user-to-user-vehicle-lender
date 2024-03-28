@@ -1,7 +1,102 @@
 {% extends "base.html" %}
-
+{% load static %}
 
 {% block content %}
- <main>About Us</main>
+    <main>
+      <section class="container-sm">
+        <div class="row">
+          <div class="col-lg-6">
+            <h1 class="fw-bold text-black-50 hero__title">
+              We're changing the way people rent and book their car.
+            </h1>
+            <p class="lead">
+              <span class="special fs-4 fw-bold"> Cab2rent </span> is a
+              cutting-edge platform designed to revolutionize the car rental and
+              booking industry by leveraging the power of peer-to-peer (P2P)
+              technology. This innovative approach allows car owners to rent out
+              their vehicles directly to drivers, bypassing traditional rental
+              agencies and offering a more flexible and cost-effective solution
+              for both parties.
+            </p>
+          </div>
+          <div class="d-flex align-items-center gap-4 col-lg-6 img-sec">
+            <div
+              class="d-flex img-wrapper align-items-center justify-content-center rounded-5 overflow-hidden shadow"
+            >
+              <img
+                src="./media/images/hero.webp"
+                class="img-fluid h-100"
+                alt=""
+              />
+            </div>
+            <div class="">
+              <div
+                class="d-flex my-3 img-wrapper align-items-center justify-content-center rounded-5 overflow-hidden shadow"
+              >
+                <img
+                  src="./media/images/bugatti.webp"
+                  class="img-fluid h-100"
+                  alt=""
+                />
+              </div>
+              <div
+                class="d-flex align-items-center img-wrapper justify-content-center rounded-5 overflow-hidden shadow"
+              >
+                <img
+                  src="./media/images/ferrari.jpg"
+                  class="img-fluid h-100"
+                  alt=""
+                />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+      <section>
+        <div class="container-sm">
+          <h1 class="fw-bold">Our mission</h1>
+          <ul class="list-unstyled pt-5">
+            <li class="d-flex gap-3">
+              <div>
+                <div class="circle rounded"></div>
+              </div>
+              <p class="fs-5">
+                The platform aims to address the growing demand for convenient
+                and affordable car rental options, especially in urban areas
+                where traditional rental services may not be readily available
+                or may be too expensive. By connecting car owners with potential
+                renters, Cab2rental not only provides a unique marketplace for
+                vehicle rentals but also offers a platform for car owners to
+                earn additional income from their vehicles.
+              </p>
+            </li>
+            <li class="d-flex gap-3">
+              <div>
+                <div class="circle rounded"></div>
+              </div>
+              <p class="fs-5">
+                One of the key benefits of using Cab2rental is the ability for
+                car owners to set their own rental rates and availability,
+                giving them greater control over their assets. For drivers, the
+                platform offers a wide range of vehicles to choose from, often
+                at competitive prices, and the convenience of booking directly
+                through the app.
+              </p>
+            </li>
+            <li class="d-flex gap-3">
+              <div>
+                <div class="circle rounded"></div>
+              </div>
+              <p class="fs-5">
+                Cab2rental also emphasizes safety and security, ensuring that
+                both parties can trust the transaction process. This includes
+                background checks on drivers and vehicle inspections to maintain
+                high standards of service.
+              </p>
+            </li>
+          </ul>
+        </div>
+      </section>
+    </main>
 {% endblock content %}
 

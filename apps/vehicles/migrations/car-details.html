@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="./node_modules/bootstrap/dist/css/bootstrap.min.css"
+    />
+    <link rel="stylesheet" href="./asset/css/index.css" />
+    <link rel="stylesheet" href="./asset/css/all-cars.css" />
+
+    <title>Car Rental</title>
+  </head>
+  <body>
+    <header>
+      <nav class="navbar navbar-expand-lg bg-body-tertiary">
+        <div class="container-sm">
+          <a class="navbar-brand logo d-block d-lg-none fw-bold fs-4" href="/"
+            >Cab2Rent</a
+          >
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent"
+            aria-expanded="false"
+            aria-label="Toggle navigation"
+          >
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <a
+              class="navbar-brand d-none d-lg-block fw-bold fs-4 me-auto"
+              href="/"
+              >Cab2Rent</a
+            >
+            <ul class="navbar-nav mb-2 fw-medium fs-5 mb-lg-0">
+              <li class="nav-item">
+                <a
+                  class="nav-link active"
+                  aria-current="page"
+                  href="/index.html"
+                  >Home</a
+                >
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/about.html">About </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" href="/all-cars.html">Available Cars</a>
+              </li>
+              <li class="nav-item">
+                <a
+                  class="btn btn-outline-warning text-black fw-medium py-2 px-4"
+                  href="/login.html"
+                >
+                  Get Started</a
+                >
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </header>
+    <main>
+      <div class="container-sm">
+        <div class="col">
+          <!-- Rental product -->
+          <div class="bg-white rounded-3 shadow p-4">
+            <!-- Rental Image -->
+            <div
+              class="rental-deal__img-wrapper d-flex align-items-center justify-content-center"
+            >
+              <img
+                src="./asset/images/avalon.png"
+                class="img-fluid h-100"
+                alt=""
+              />
+            </div>
+
+            <!--  -->
+            <div class="mt-3">
+              <div class="d-md-flex justify-content-between">
+                <h5 class="fw-medium fs-2">Toyota-Avalon</h5>
+                <div class="py-2 py-md-0">
+                  <a
+                    href="/booking.html"
+                    class="btn d-inline-block custom-btn text-white fs-3"
+                    ><span class="d-inline-block me-3">Rent Now</span
+                    ><span><i class="bi bi-arrow-right"></i></span>
+                  </a>
+                </div>
+              </div>
+
+              <div class="py-3">
+                <div>
+                  <span class="fw-medium fs-4">Listed By::</span>
+                  <span class="fs-5">John Doe</span>
+                </div>
+              </div>
+              <div class="py-3">
+                <div>
+                  <span class="fw-medium fs-4">Pick Up Location::</span>
+                  <span class="fs-5">12 street </span>
+                </div>
+              </div>
+              <hr class="bg-secondary" />
+
+              <!-- PRICE AND MAX SPEED OF THE CAR -->
+
+              <div class="py-3">
+                <div
+                  class="d-flex align-items-center my-3 justify-content-between text-secondary fs-4"
+                >
+                  <div>
+                    <span class="fw-medium text-black">Max.speed</span>
+                  </div>
+                  <div>
+                    <span class="">23.45 km/hr</span>
+                  </div>
+                </div>
+                <div
+                  class="d-flex align-items-center my-3 justify-content-between text-secondary fs-3"
+                >
+                  <div>
+                    <span class="fw-medium">Price</span>
+                  </div>
+                  <div>
+                    <span class="fw-medium text-black">$2,000</span>
+                    <span class="">/day</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- The Little details -->
+              <div class="border border-2 p-2">
+                <h3 class="fw-medium fs3">Other Details</h3>
+                <div
+                  class="d-flex align-items-center my-3 justify-content-between text-secondary fs-5 fs-md-4"
+                >
+                  <div>
+                    <span class="icomoon-free--make-group"></span>
+                    <span>Toyota</span>
+                  </div>
+                  <div>
+                    <span class="iconamoon--type-bold"></span>
+                    <span>SEDAN</span>
+                  </div>
+                </div>
+                <div
+                  class="d-flex align-items-center my-3 justify-content-between text-secondary fs-5 fs-md-4"
+                >
+                  <div>
+                    <span><i class="bi bi-person"></i></span>
+                    <span>2 Passenger</span>
+                  </div>
+                  <div>
+                    <span class="icon-park-solid--manual-gear"></span>
+                    <span>Auto</span>
+                  </div>
+                </div>
+                <div
+                  class="d-flex my-3 align-items-center justify-content-between text-secondary fs-5 fs-md-4"
+                >
+                  <div>
+                    <span
+                      class="streamline--interface-weather-snow-flake-winter-freeze-snow-freezing-ice-cold-weather-snowflake"
+                    ></span>
+                    <span>Air conditioning</span>
+                  </div>
+                  <div>
+                    <span class="mdi--car-door"></span>
+                    <span>2 Doors</span>
+                  </div>
+                </div>
+                <div
+                  class="d-flex my-3 align-items-center justify-content-between text-secondary fs-5 fs-md-4"
+                >
+                  <div>
+                    <span class="maki--fuel"></span>
+                    <span> Petrol, Gas</span>
+                  </div>
+                  <div>
+                    <span class="mingcute--engine-fill"></span>
+                    <span>1000 Cc</span>
+                  </div>
+                </div>
+              </div>
+              <hr class="bg-secondary" />
+            </div>
+            <div class="border border-2 p-2">
+              <h3 class="fw-medium py-1">Car Description</h3>
+              <hr class="bg-secondary" />
+              <p>
+                Lorem ipsum dolor sit amet consectetur adipisicing elit. Debitis
+                quaerat optio deserunt similique cupiditate expedita impedit
+                eligendi sequi excepturi dolorem a quasi, molestias ullam
+                nostrum deleniti, officia quidem aspernatur error exercitationem
+                dicta repellat. Fugit odio numquam ipsum quo repudiandae labore
+                repellendus blanditiis ratione sequi, nemo perspiciatis saepe
+                laudantium sapiente officia cumque laboriosam non asperiores.
+                Autem sit expedita tempore ipsam doloribus maxime quidem
+                nesciunt eos eaque. Suscipit nihil accusantium soluta aperiam
+                quod numquam! Mollitia et recusandae numquam quia cupiditate
+                magnam corrupti quibusdam, distinctio, fugit ad iure id. Iusto,
+                cum id mollitia natus modi cumque magnam itaque sit tempora
+                necessitatibus quaerat reprehenderit.
+              </p>
+            </div>
+            <div class="my-3">
+              <a href="/booking.html" class="btn custom-btn text-white fs-3"
+                ><span class="d-inline-block me-3">Rent Now</span
+                ><span><i class="bi bi-arrow-right"></i></span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+    <footer class="py-5 bg-secondary text-white">
+      <div class="container-sm">
+        <div class="">
+          <h4 class="special fw-medium fs-4">Cab2Rent</h4>
+          <p>
+            Revolutionizing the car rental and booking industry by leveraging
+            the power of peer-to-peer (P2P)
+          </p>
+        </div>
+      </div>
+      <hr />
+      <div class="container-sm">
+        <p>
+          &copy; 2024 <span class="special fw-medium fs-5">Cab2Rent</span>. All
+          rights reserved.
+        </p>
+      </div>
+    </footer>
+
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>

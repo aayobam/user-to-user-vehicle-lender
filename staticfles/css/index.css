@@ -12,30 +12,34 @@
 body {
   font-family: "Poppins", sans-serif;
 }
-
 section {
   overflow: hidden;
   padding: 50px 0;
 }
-
 main {
   min-height: 80vh;
+}
+
+/* Hero Title  */
+.hero__title {
+  font-size: 50px !important;
+}
+/* for spans that is to customize a specific text */
+.special {
+  color: var(--custom-pri);
 }
 
 /* button */
 .custom-btn {
   background-color: var(--custom-pri);
 }
-
 .custom-btn:hover {
   background-color: rgba(255, 92, 0, 0.9);
 }
-
 .custom-btn:active {
   background-color: rgb(255, 92, 0);
 }
-
-/* Custom Icons */
+/* Custom Icons  from iconfy*/
 /* //////////////////////////////////////////////// */
 .icon-park-solid--manual-gear {
   display: inline-block;
@@ -50,7 +54,6 @@ main {
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
 }
-
 .mdi--car-door {
   display: inline-block;
   width: 1em;
@@ -64,7 +67,6 @@ main {
   -webkit-mask-size: 100% 100%;
   mask-size: 100% 100%;
 }
-
 .streamline--interface-weather-snow-flake-winter-freeze-snow-freezing-ice-cold-weather-snowflake {
   display: inline-block;
   width: 1em;
@@ -79,14 +81,67 @@ main {
   mask-size: 100% 100%;
 }
 
+.maki--fuel {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 15 15'%3E%3Cpath fill='%23000' d='M14 6v5.5a.5.5 0 0 1-1 0v-2A1.5 1.5 0 0 0 11.5 8H10V2a1 1 0 0 0-1-1H3a1 1 0 0 0-1 1v11a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V9h1.5a.5.5 0 0 1 .5.5v2a1.5 1.5 0 0 0 3 0V5a1 1 0 0 0-1-1V2.49a.5.5 0 0 0-.5-.49a.51.51 0 0 0-.5.55V5a1 1 0 1 0 1-1zm-5 .5a.5.5 0 0 1-.5.5h-5a.5.5 0 0 1-.5-.5v-3a.5.5 0 0 1 .5-.5h5a.5.5 0 0 1 .5.5z'/%3E%3C/svg%3E");
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+.mingcute--engine-fill {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M24 0v24H0V0zM12.593 23.258l-.011.002l-.071.035l-.02.004l-.014-.004l-.071-.035c-.01-.004-.019-.001-.024.005l-.004.01l-.017.428l.005.02l.01.013l.104.074l.015.004l.012-.004l.104-.074l.012-.016l.004-.017l-.017-.427c-.002-.01-.009-.017-.017-.018m.265-.113l-.013.002l-.185.093l-.01.01l-.003.011l.018.43l.005.012l.008.007l.201.093c.012.004.023 0 .029-.008l.004-.014l-.034-.614c-.003-.012-.01-.02-.02-.022m-.715.002a.023.023 0 0 0-.027.006l-.006.014l-.034.614c0 .012.007.02.017.024l.015-.002l.201-.093l.01-.008l.004-.011l.017-.43l-.003-.012l-.01-.01z'/%3E%3Cpath fill='%23000' d='M12 3a1 1 0 1 1 0 2h-1v1h2.764a2 2 0 0 1 .894.211l3.236 1.618A2 2 0 0 1 19 9.618V12h1v-1a1 1 0 1 1 2 0v4a1 1 0 1 1-2 0v-1h-1v1.5a2 2 0 0 1-.8 1.6l-3.333 2.5a2 2 0 0 1-1.2.4H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4V5H8a1 1 0 0 1 0-2zm-.985 6.643a1 1 0 0 0-1.307.246l-.065.097l-1.491 2.484a1.01 1.01 0 0 0 .75 1.524l.116.006h1.216l-.591.986a1 1 0 0 0 1.649 1.125l.066-.096l1.49-2.485a1.01 1.01 0 0 0-.75-1.524L11.982 12h-1.216l.591-.985a1 1 0 0 0-.342-1.372'/%3E%3C/g%3E%3C/svg%3E");
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+.icomoon-free--make-group {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath fill='%23000' d='M5 2H3c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1h2c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1m6 4h2c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1h-2c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1m0-3h2v2h-2zm-6 7H3c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-2c0-.55-.45-1-1-1m0 3H3v-2h2zm8-3h-2c-.55 0-1 .45-1 1v2c0 .55.45 1 1 1h2c.55 0 1-.45 1-1v-2c0-.55-.45-1-1-1'/%3E%3Cpath fill='%23000' d='M14 8h-1c-1.336 0-2.591-.52-3.536-1.464S8 4.336 8 3V2c0-1.1-.9-2-2-2H2C.9 0 0 .9 0 2v4c0 1.1.9 2 2 2h1c1.336 0 2.591.52 3.536 1.464S8 11.664 8 13v1c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2v-4c0-1.1-.9-2-2-2m1 6c0 .265-.105.515-.295.705S14.265 15 14 15h-4c-.265 0-.515-.105-.705-.295S9 14.265 9 14v-1a6 6 0 0 0-6-6H2c-.265 0-.515-.105-.705-.295S1 6.264 1 6V2c0-.265.105-.515.295-.705S1.735 1 2 1h4c.265 0 .515.105.705.295S7 1.735 7 2v1a6 6 0 0 0 6 6h1c.265 0 .515.105.705.295S15 9.735 15 10z'/%3E%3C/svg%3E");
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
+.iconamoon--type-bold {
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  --svg: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath fill='none' stroke='%23000' stroke-linecap='round' stroke-linejoin='round' stroke-width='2.5' d='M5 7V6a2 2 0 0 1 2-2h5m7 3V6a2 2 0 0 0-2-2h-5m0 0v16m0 0H9m3 0h3'/%3E%3C/svg%3E");
+  background-color: currentColor;
+  -webkit-mask-image: var(--svg);
+  mask-image: var(--svg);
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 100% 100%;
+  mask-size: 100% 100%;
+}
 /* /////////////////////////////////////// */
+/* Custom Icon ends */
+
 /* Navbar  */
 /* Customizing the button toggler of the navbar */
 .navbar-toggler {
   border: 0px;
   outline: none;
 }
-
 .navbar-toggler:focus,
 .navbar-toggler-icon:focus {
   outline: none;
@@ -101,10 +156,15 @@ nav .navbar-brand {
   color: var(--custom-pri) !important;
   text-decoration: underline;
 }
-
 .sub-heading {
   background-color: rgba(255, 92, 0, 0.1);
   color: var(--custom-pri);
+}
+
+/* Customizing the form control on focus for all form fields */
+.form-control:focus {
+  border-color: #ff5c00;
+  box-shadow: none;
 }
 
 /* Forms background imgs */
@@ -112,20 +172,25 @@ nav .navbar-brand {
   max-width: 520px;
   margin: auto;
   background: rgba(0, 0, 0, 0.5);
-  min-height: 100vh;
   backdrop-filter: blur(24px);
   color: white;
-  display: flex;
-  align-items: center;
   padding: 0 20px;
 }
 
 .main {
-  background: url(/media/images/hero.webp) no-repeat center 50%;
+  background: linear-gradient(
+      45deg,
+      rgba(245, 70, 66, 0.75),
+      rgba(8, 83, 156, 0.75)
+    ),
+    url(../images/hero.webp) no-repeat center 50%;
 }
 
 @media (max-width: 640px) {
   section {
     padding: 30px 20px;
+  }
+  .hero__title {
+    font-size: 65px !important;
   }
 }

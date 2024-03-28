@@ -1,0 +1,14 @@
+.img-wrapper {
+  height: 300px;
+}
+.circle {
+  height: 20px;
+  width: 20px;
+  background: #ff5c00;
+}
+
+@media (max-width: 650px) {
+  .hero__title {
+    font-size: 35px !important;
+  }
+}
