@@ -7,24 +7,21 @@ from apps.bookings.mixins import BookingMixing
 from apps.bookings.models import Booking
 
 
-class BookVehicleView(LoginRequiredMixin, generic.CreateView, generic.DetailView):
+class BookVehicleView(LoginRequiredMixin, generic.CreateView):
     model = Booking
     fields = "__all__"
     template_name = 'bookings/book_vehicle.html'
-    queryset = Booking.objects.select_related("vehicle", "renter").all()
     success_url = reverse_lazy("bookings")
 
     def post(self, request, *args, **kwargs):
         instance = self.get_object()
 
         if not self.is_booking_available(instance.vehicle, instance.start_date, instance.end_date):
-            messages.info(
-                self.request, "bookings not available, please select a different date or check other vehicles.")
+            messages.info(self.request, "bookings not available, please select a different date or check other vehicles.")
             return redirect('available_vehicles')
 
         if not self.cannot_book_own_listing(instance):
-            messages.info(
-                self.request, "you cannot rent your own vehicle listing(s).")
+            messages.info(self.request, "you cannot rent your own vehicle listing(s).")
             return redirect('available_vehicles')
 
         messages.success(self.request, "booking successfull.")
