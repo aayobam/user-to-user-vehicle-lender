@@ -17,11 +17,13 @@ class BookVehicleView(LoginRequiredMixin, generic.CreateView):
         instance = self.get_object()
 
         if not self.is_booking_available(instance.vehicle, instance.start_date, instance.end_date):
-            messages.info(self.request, "bookings not available, please select a different date or check other vehicles.")
+            messages.info(
+                self.request, "bookings not available, please select a different date or check other vehicles.")
             return redirect('available_vehicles')
 
         if not self.cannot_book_own_listing(instance):
-            messages.info(self.request, "you cannot rent your own vehicle listing(s).")
+            messages.info(
+                self.request, "you cannot rent your own vehicle listing(s).")
             return redirect('available_vehicles')
 
         messages.success(self.request, "booking successfull.")
@@ -39,8 +41,15 @@ class BookVehicleView(LoginRequiredMixin, generic.CreateView):
         return True
 
 
-class UserBookingsListView(LoginRequiredMixin, BookingMixing, generic.ListView):
+class CustomerBookingListView(LoginRequiredMixin, generic.ListView):
     model = Booking
     fields = "__all__"
-    template_name = "bookings/my_bookings.html"
+    template_name = "bookings/orders.html"
+    context_object_name = "bookings"
+
+
+class OwnerBookingListView(LoginRequiredMixin, generic.ListView):
+    model = Booking
+    fields = "__all__"
+    template_name = "bookings/my-bookings.html"
     context_object_name = "bookings"

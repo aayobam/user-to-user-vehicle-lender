@@ -1,5 +1,6 @@
 import mimetypes
 from django.db.models import Q
+from django.db.models.query import QuerySet
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib import messages
@@ -11,6 +12,7 @@ from django.shortcuts import redirect
 from core.settings import FILE_UPLOAD_MAX_MEMORY_SIZE
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.files.storage import FileSystemStorage
+from apps.common import choices
 
 
 class CreateVehicleView(LoginRequiredMixin, generic.CreateView):
@@ -70,6 +72,9 @@ class VehicleListView(LoginRequiredMixin, generic.ListView):
     context_object_name = "vehicles"
     paginate_by = 20
 
+    def get_queryset(self):
+        return super().get_queryset().filter(owner=self.request.user)
+
 
 class VehicleDetailView(generic.DetailView):
     model = Vehicle
@@ -86,6 +91,17 @@ class UpdateVehicleView(LoginRequiredMixin, generic.UpdateView):
     context_object_name = "vehicle"
     pk_url_kwarg = "id"
     success_url = reverse_lazy("user_profile")
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context["VEHICLE_MAKES"] = choices.VEHICLE_MAKES
+        context["VEHICLE_TYPES"] = choices.VEHICLE_TYPES
+        context["GEAR_TYPES"] = choices.TRANSMISSION_TYPES
+        context["FUEL_TYPE"] = choices.FUEL_TYPE
+        context["TOTAL_VEHICLE_DOORS"] = choices.TOTAL_VEHICLE_DOORS
+        context["TOTAL_PASSENGERS"] = choices.TOTAL_PASSENGERS
+        context["TEMPERATURE_REGULATOR"] = choices.TEMPERATURE_REGULATOR
+        return context
 
 
 class DeleteVehicleView(LoginRequiredMixin, generic.DeleteView):

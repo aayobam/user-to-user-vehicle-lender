@@ -138,7 +138,6 @@ USE_I18N = True
 USE_TZ = True
 
 LOGIN_URL = reverse_lazy('user_login')
-LOGOUT_REDIRECT_URL = reverse_lazy('user_login')
 
 # max value of uploaded file
 FILE_UPLOAD_MAX_MEMORY_SIZE = 3 * 1024 * 1024

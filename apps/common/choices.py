@@ -14,12 +14,6 @@ VEHICLE_DOCUMENTS = [
     ('Vehicle Registration Certificate', 'Vehicle Registration Certificate')
 ]
 
-USER_ROLES = (
-    ('', 'Select Document'),
-    ('Lender', 'Lender'),
-    ('Borrower', ''),
-)
-
 
 VEHICLE_TYPES = [
     ('', 'Select Type'),
@@ -84,4 +78,11 @@ TOTAL_PASSENGERS = [
     ('24', '24'),
     ('40', '40'),
     ('50', '50')
+]
+
+
+TEMPERATURE_REGULATOR = [
+    ('', 'Select Temperature'),
+    ('Air Conditoning', 'Air Conditoning'),
+    ('Climate Control', 'Climate Control')
 ]

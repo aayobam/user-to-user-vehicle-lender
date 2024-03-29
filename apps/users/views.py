@@ -7,6 +7,7 @@ from django.contrib.auth import login, logout, authenticate, update_session_auth
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.utils.decorators import method_decorator
 from django.core.files.storage import FileSystemStorage
+from apps.bookings.models import Booking
 from core.settings import FILE_UPLOAD_MAX_MEMORY_SIZE
 from apps.common import choices
 from .models import CustomUser
@@ -117,6 +118,7 @@ class UserProfileView(LoginRequiredMixin, generic.UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.get_object()
+        context["total_booking"] = Booking.objects.select_related("vehicle", "renter").filter(vehicle__owner=self.request.user)
         return context
 
 
@@ -152,13 +154,16 @@ class UserLoginView(generic.TemplateView):
         return redirect("user_login")
 
 
-class UserLogoutView(generic.TemplateView):
-    success_url = reverse_lazy("user_login")
+# class UserLogoutView(generic.TemplateView):
+#     def get(self, request):
+#         logout(request)
+#         messages.success(self.request, "logout successful.")
+#         return redirect('user_login')
 
-    def get(self, request):
-        logout(request)
-        messages.success(self.request, "logout successful.")
-        return redirect('user_login')
+def logout_view(request):
+    logout(request)
+    messages.success(request, "logout successful.")
+    return redirect('user_login')
 
 
 class ChangePasswordView(LoginRequiredMixin, generic.TemplateView):
@@ -194,6 +199,5 @@ class ChangePasswordView(LoginRequiredMixin, generic.TemplateView):
         user.set_password(new_password1)
         user.save()
         update_session_auth_hash(request, user)
-        messages.success(
-            request, "password change successfull. your new password would take effect on next login.")
+        messages.success(request, "password change successfull. your new password would take effect on next login.")
         return redirect("user_profile")

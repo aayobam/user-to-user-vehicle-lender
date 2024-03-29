@@ -8,13 +8,18 @@ from apps.vehicles.models import Vehicle
 
 
 class Booking(BaseModel):
-    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE)
+    vehicle = models.ForeignKey(Vehicle, on_delete=models.CASCADE, related_name="booking")
     renter = models.ForeignKey(CustomUser, on_delete=models.SET_NULL, null=True, blank=True)
     renter_driver_license = models.FileField(blank=True, null=True)
     start_date = models.DateTimeField()
     end_date = models.DateTimeField()
+    address = models.CharField(max_length=250, blank=True, null=True)
+    city = models.CharField(max_length=100, blank=True, null=True)
+    state = models.CharField(max_length=100, blank=True, null=True)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     total_hours = models.CharField(max_length=50, blank=True, null=True)
+    pickup_location = models.CharField(max_length=150, blank=True, null=True)
+    dropoff_location = models.CharField(max_length=150, blank=True, null=True)
 
     class Meta:
         verbose_name = "Booking"
@@ -27,8 +32,7 @@ class Booking(BaseModel):
         return reverse("booking_detail", kwargs={"id": self.id})
 
     def get_total_hours(self):
-        duration_hours = (
-            self.end_date - self.start_date).total_seconds() / 3600
+        duration_hours = (self.end_date - self.start_date).total_seconds() / 3600
         return ceil(duration_hours)
 
     def get_total_price(self):
