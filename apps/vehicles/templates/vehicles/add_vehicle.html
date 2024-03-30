@@ -12,25 +12,25 @@
         <!-- Email of the user, this will be prefix from the user data -->
         <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
           <div class="">
-            <label for="car-name" class="form-label mb-1 fw-medium">Vehicle Name</label>
-            <input type="text" id="car-name" name="car-name" class="form-control" placeholder="Avalon" required />
+            <label for="vehicle-model" class="form-label mb-1 fw-medium">Vehicle Model</label>
+            <input type="text" id="car-name" name="vehicle-model" class="form-control" placeholder="Avalon" required/>
           </div>
 
           <div class="">
-            <label for="car-modal" class="form-label mb-1 fw-medium">Vehicle model</label>
-            <input type="text" id="car-modal" name="car-modal" class="form-control" placeholder="2024 " required />
+            <label for="vehicle-year" class="form-label mb-1 fw-medium">Vehicle Year</label>
+            <input type="text" id="car-modal" name="vehicle-year" class="form-control" placeholder="2024 " required />
           </div>
         </div>
 
         <div class="mb-3">
-          <label for="formfile" class="form-label mb-1 fw-medium">Upload Vehicle Document</label>
-          <input class="form-control" type="file" id="formFile" />
+          <label for="vehicle-image" class="form-label mb-1 fw-medium">Upload Vehicle Image</label>
+          <input class="form-control" type="file" name="vehicle-image" id="formFile" required/>
         </div>
 
         <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
           <div>
-            <label for="car-make" class="form-label mb-1 fw-medium">Vehicle Make</label>
-            <select class="form-select" id="car-make" aria-label="Default select example">
+            <label for="vehicle-make" class="form-label mb-1 fw-medium">Vehicle Make</label>
+            <select class="form-select" id="car-make" name="vehicle-make" aria-label="Default select example" required>
               {% for value, label in VEHICLE_MAKES %}
                 <option value="{{ value }}">{{ label }}</option>
               {% endfor %}
@@ -38,10 +38,10 @@
           </div>
 
           <div>
-            <label for="car-type" class="form-label mb-1 fw-medium">Vehicle Type</label>
-            <select class="form-select" aria-label="Default select example" id="car-type">
+            <label for="vehicle-type" class="form-label mb-1 fw-medium">Vehicle Type</label>
+            <select class="form-select" name="vehicle-type" aria-label="Default select example" id="car-type" required>
               {% for value, label in VEHICLE_TYPES %}
-              <option value="{{ value }}">{{ label }}</option>
+                <option value="{{ value }}">{{ label }}</option>
               {% endfor %}
             </select>
           </div>
@@ -49,8 +49,8 @@
 
         <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
           <div class="">
-            <label for="car-price" class="form-label mb-1 fw-medium">Vehicle Price Per/Hr</label>
-            <input type="text" id="car-price" name="car-price" class="form-control" placeholder="$45" required />
+            <label for="vehicle-price" class="form-label mb-1 fw-medium">Vehicle Price Per/Hr</label>
+            <input type="text" id="car-price" name="vehicle-price" class="form-control" placeholder="$45" required />
           </div>
 
           <div class="">
@@ -69,44 +69,66 @@
             <label for="engine-capacity" class="form-label mb-1 fw-medium">Engine Capacity</label>
             <input type="text" id="engine-capacity" name="engine-capacity" class="form-control" placeholder="1000 Cc" required />
           </div>
+
         </div>
 
         <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
           <div class="">
             <label for="no-door" class="form-label mb-1 fw-medium">Number of doors</label>
-            <input type="number" min="1" id="no-door" name="no-door" class="form-control" placeholder="2" required />
+            <select class="form-select" min="1" id="no-door" name="no-door" class="form-control" placeholder="2" required>
+              {% for value, label in TOTAL_VEHICLE_DOORS %}
+                <option value="{{ value }}">{{ label }}</option>
+              {% endfor %}
+            </select>
           </div>
 
           <div class="">
-            <label for="sit-capacity" class="form-label mb-1 fw-medium">Seat Capacity</label>
-            <input type="number" min="1" id="sit-capacity" name="sit-capacity" class="form-control" placeholder="4" required />
+            <label for="seatt-capacity" class="form-label mb-1 fw-medium">Seat Capacity</label>
+             <select class="form-select" min="1" id="sit-capacity" name="seat-capacity" class="form-control" placeholder="4" required >
+              {% for value, label in TOTAL_PASSENGERS %}
+                <option value="{{ value }}">{{ label }}</option>
+              {% endfor %}
+            </select>
           </div>
         </div>
 
         <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
           <div>
             <label for="gear-type" class="form-label mb-1 fw-medium">Gear Type</label>
-            <select class="form-select" id="gear-type" aria-label="Default select example">
-              <option selected>Select Gear Type</option>
-              <option value="Manual">Manual</option>
-              <option value="Automatic">Automatic</option>
+            <select class="form-select" id="gear-type" name="gear-type" aria-label="Default select example" required>
+              {% for value, label in GEAR_TYPES %}
+                <option value="{{ value }}">{{ label }}</option>
+              {% endfor %}
             </select>
           </div>
 
           <div>
-            <label for="temp" class="form-label mb-1 fw-medium">Temperature Regulator</label>
-            <select class="form-select" aria-label="Default select example" id="temp">
-              <option selected>Select Temperature</option>
-              <option value="Air conditioning">Air conditioning</option>
-              <option value="Climate control">Climate control</option>
-              <option value="none">none</option>
+            <label for="temperature" class="form-label mb-1 fw-medium">Temperature Regulator</label>
+            <select class="form-select" name="temperature" aria-label="Default select example" id="temp" required>
+              {% for value, label in TEMPERATURE_REGULATOR %}
+                <option value="{{ value }}">{{ label }}</option>
+              {% endfor %}
             </select>
           </div>
         </div>
 
+        <div>
+          <label for="availability-status" class="form-label mb-1 fw-medium">Availability Status</label>
+            <select class="form-select" name="availability-status" aria-label="Default select example" id="temp" required>
+              {% for value, label in AVAILABILITY_STATUS %}
+                <option value="{{ value }}">{{ label }}</option>
+              {% endfor %}
+            </select>
+        </div>
+
         <div class="mb-3">
-          <label for="userName" class="form-label mb-1 fw-medium">Car Description</label>
-          <textarea class="form-control" placeholder="Description..."></textarea>
+          <label for="vehicle-reg-cert" class="form-label mb-1 fw-medium">Upload Vehicle Registration Certificate</label>
+          <input class="form-control" type="file" name="vehicle-reg-cert" id="formFile" required/>
+        </div>
+
+        <div class="mb-3">
+          <label for="description" class="form-label mb-1 fw-medium">Vehicle Description</label>
+          <textarea class="form-control" placeholder="Description..." name="description" required></textarea>
         </div>
 
         <button type="submit" class="justify-content-center btn w-100 mt-3 d-flex gap-2 align-items-center fw-bolder shadow custom-btn">

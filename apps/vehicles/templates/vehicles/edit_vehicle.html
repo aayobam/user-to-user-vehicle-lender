@@ -7,43 +7,46 @@
   <div class="container-sm">
     <div class="d-grid col-12 col-md-10 col-lg-7 mx-auto py-5">
       <div class="bg-white rounded-5 shadow-lg py-5 px-5">
-        <h4 class="fw-semibold text-center pt-3 pb-5">List Your Car</h4>
+        <h4 class="fw-semibold text-center pt-3 pb-5">Update Vehicle Record</h4>
         
         <form action="{% url "update_vehicle" vehicle.id %}" method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <!-- Email of the user, this will be prefix from the user data -->
           <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
             <div class="">
-              <label for="vehicle-name" class="form-label mb-1 fw-medium">Vehicle Name</label>
-              <input type="text" id="car-name" name="vehicle-name" class="form-control" placeholder="Avalon" value="Avalon" required />
+              <label for="vehicle-model" class="form-label mb-1 fw-medium">Vehicle Model</label>
+              <input type="text" id="car-name" name="vehicle-model" class="form-control" placeholder="Avalon" value="{{ vehicle.model }}" required />
             </div>
 
             <div class="">
-              <label for="vehicle-modal" class="form-label mb-1 fw-medium">Vehicle model</label>
-              <input type="text" id="car-modal" name="vehicle-model" class="form-control" placeholder="2024" value="2024" required/>
+              <label for="vehicle-year" class="form-label mb-1 fw-medium">Vehicle Year</label>
+              <input type="text" id="car-modal" name="vehicle-year" class="form-control" placeholder="2024" value="{{ vehicle.year }}" required/>
             </div>
           </div>
 
           <div class="mb-3">
-            <label for="formfile" class="form-label mb-1 fw-medium">Upload Vehicle Document</label>
-            <input class="form-control" type="file" name="formfile" id="formFile" value="{{ vehicle.document.url }}" />
+            <label for="vehicle-image" class="form-label mb-1 fw-medium">Update Vehicle Image</label>
+            <br>
+            <input class="form-control" type="file" name="vehicle-image" id="formFile"/>
+            <small>present image: </small>
+            <a href="{{ vehicle.image.url }}" target="_blank" style="text-decoration: none;">{{ vehicle.image.name }}</a>
           </div>
 
           <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
             <div>
               <label for="vehicle-make" class="form-label mb-1 fw-medium">Vehicle Make</label>
-              <select class="form-select" id="car-make" name="vehicle-make" aria-label="Default select example" value="vehicle.vehicle_make">
+              <select class="form-select" id="car-make" name="vehicle-make" aria-label="Default select example">
                 {% for value, label in VEHICLE_MAKES %}
-                  <option value="{{ value }}">{{ label }}</option>
+                  <option value="{{ value }}" {% if vehicle.vehicle_make == value %}selected{% endif %}>{{ label }}</option>
                 {% endfor %}
               </select>
             </div>
 
             <div>
               <label for="vehicle-type" class="form-label mb-1 fw-medium">Vehicle Type</label>
-              <select class="form-select" aria-label="Default select example" id="car-type" name="vehicle-type" value="{{ vehicle.vehicle_type }}">
+              <select class="form-select" aria-label="Default select example" id="car-type" name="vehicle-type">
                 {% for value, label in VEHICLE_TYPES %}
-                  <option value="{{ value }}">{{ label }}</option>
+                  <option value="{{ value }}" {% if vehicle.vehicle_type == value %}selected{% endif %}>{{ label }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -52,12 +55,12 @@
           <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
             <div class="">
               <label for="vehicle-price" class="form-label mb-1 fw-medium">Price Per/Hr</label>
-              <input type="text" id="car-price" name="vehicle-price" class="form-control" placeholder="$45" value="{{ vehicle.get_price_per_hr }}" required />
+              <input type="text" id="car-price" name="vehicle-price" class="form-control" placeholder="$45" value="{{ vehicle.price_per_hour }}" required />
             </div>
 
             <div class="">
               <label for="pickup-location" class="form-label mb-1 fw-medium" >Pick Up Location</label>
-              <input type="text" id="pickup-location" name="pickup-location" class="form-control" placeholder="123 my street " value="{{ vehicle.location }}" required />
+              <input type="text" id="pickup-location" name="pickup-location" class="form-control" placeholder="123 my street " value="{{ vehicle.pickup_location }}" required />
             </div>
           </div>
 
@@ -76,18 +79,18 @@
           <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
             <div class="">
               <label for="no-door" class="form-label mb-1 fw-medium">Number of doors</label>
-              <select class="form-select" min="1" id="no-door" name="no-door" placeholder="2" value="{{ vehicle.total_vehicle_doors }}" required>
+              <select class="form-select" min="1" id="no-door" name="no-door" placeholder="2" required>
                 {% for value, label in TOTAL_VEHICLE_DOORS %}
-                  <option value="{{ value }}">{{ label }}</option>
+                  <option value="{{ value }}" {% if vehicle.total_doors == value %}selected{% endif %}>{{ label }}</option>
                 {% endfor %}
               </select>
             </div>
 
             <div class="">
               <label for="sit-capacity" class="form-label mb-1 fw-medium" >Seat Capacity</label>
-              <select class="form-select" name="seat-capacity" placeholder="4" value="{{ vehicle.total_passengers }}" required>
+              <select class="form-select" name="seat-capacity" placeholder="4" required>
                 {% for value, label in TOTAL_PASSENGERS %}
-                  <option value="{{ value }}">{{ label }}</option>
+                  <option value="{{ value }}" {% if vehicle.total_passengers == value %}selected{% endif %}>{{ label }}</option>
                 {% endfor %}
               </select>
             </div>
@@ -96,26 +99,42 @@
           <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
             <div>
               <label for="gear-type" class="form-label mb-1 fw-medium">Gear Type</label>
-              <select class="form-select" id="gear-type" aria-label="Default select example" value="{{ vehicle.transmission_type }}">
+              <select class="form-select" id="gear-type" aria-label="Default select example" name="gear-type">
                 {% for value, label in GEAR_TYPES %}
-                  <option value="{{ value }}">{{ label }}</option>
+                  <option value="{{ value }}" {% if vehicle.transmission_type == value %}selected{% endif %}>{{ label }}</option>
                 {% endfor %}
               </select>
             </div>
 
             <div>
-              <label for="temp" class="form-label mb-1 fw-medium">Temperature Regulator</label>
-              <select class="form-select" aria-label="Default select example" id="temp" value="{{ vehicle.temperature_regulator }}">
+              <label for="temperature" class="form-label mb-1 fw-medium">Temperature Regulator</label>
+              <select class="form-select" aria-label="Default select example" id="temp" name="temperature">
                 {% for value, label in TEMPERATURE_REGULATOR %}
-                  <option value="{{ value }}">{{ label }}</option>
+                  <option value="{{ value }}" {% if vehicle.temperature_regulator == value %}selected{% endif %}>{{ label }}</option>
                 {% endfor %}
               </select>
             </div>
           </div>
 
+          <div>
+            <label for="availability-status" class="form-label mb-1 fw-medium">Availability Status</label>
+            <select class="form-select" aria-label="Default select example" id="temp" name="availability-status">
+              {% for value, label in AVAILABILITY_STATUS %}
+                <option value="{{ value }}" {% if vehicle.availability_status == value %}selected{% endif %}>{{ label }}</option>
+              {% endfor %}
+            </select>
+          </div>
+
           <div class="mb-3">
-            <label for="userName" class="form-label mb-1 fw-medium">Car Description</label>
-            <textarea class="form-control" placeholder="Description..." value="{{ vehicle.description }}" ></textarea>
+            <label for="vehicle-reg-cert" class="form-label mb-1 fw-medium">Upload Vehicle Registration Certificate</label>
+            <input class="form-control" type="file" name="vehicle-reg-cert" id="formFile"/>
+            <small>present registration certificate:</small>
+            <a href="{{ vehicle.registration_certificate.url }}" target="_blank" style="text-decoration: none;">{{ vehicle.registration_certificate.name }}</a>
+          </div>
+
+          <div class="mb-3">
+            <label for="userName" class="form-label mb-1 fw-medium">Vehicle Description</label>
+            <textarea class="form-control" placeholder="Description..." name="description">{{ vehicle.description }}</textarea>
           </div>
 
           <button type="submit" class="justify-content-center btn w-100 mt-3 d-flex gap-2 align-items-center fw-bolder shadow custom-btn">

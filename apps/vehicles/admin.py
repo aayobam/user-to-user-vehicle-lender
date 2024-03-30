@@ -5,8 +5,7 @@ from .models import Vehicle
 
 @admin.register(Vehicle)
 class AdminVehicle(admin.ModelAdmin):
-    list_display = ('id', 'owner', 'vehicle_type', 'vehicle_make', 'model', 'year', 'get_max_speed',
-                    'registration_number', 'get_price_per_hr', 'availability_status')
+    list_display = ('id', 'owner', 'vehicle_type', 'vehicle_make', 'model', 'year', 'get_max_speed', 'get_price_per_hr', 'availability_status')
     readonly_fields = ('id',)
 
     def get_max_speed(self, obj):

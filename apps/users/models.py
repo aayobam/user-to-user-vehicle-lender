@@ -20,9 +20,10 @@ class CustomUser(BaseModel, PermissionsMixin, AbstractBaseUser):
     document = models.FileField(upload_to="documents/", help_text=_(
         "upload a legal document that truely identifies you for verification."), blank=True, null=True)
     profile_picture = models.ImageField(
-        upload_to="profile_picture/", default="images/dummy.png")
+        upload_to="profile picture/", default="images/dummy.png")
 
-    personal_description = models.TextField(max_length=500, blank=True, null=True)
+    personal_description = models.TextField(
+        max_length=500, blank=True, null=True)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)

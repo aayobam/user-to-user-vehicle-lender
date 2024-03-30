@@ -11,7 +11,6 @@
             <th scope="col">Ref</th>
             <th scope="col">Vehicle Name</th>
             <th scope="col">Date Listed</th>
-            <th scope="col">Bookings</th>
             <th scope="col">Status</th>
             <th scope="col">Action</th>
           </tr>
@@ -23,8 +22,7 @@
               <th scope="row">1</th>
               <td>{{ vehicle.model }}</td>
               <td>{{ vehicle.created_on|date }}</td>
-              <td>5</td>
-              <td>Booked</td>
+              <td>{{ vehicle.availability_status }}</td>
               <td class="d-flex gap-1">
                 <span class="bg-warning rounded-pill d-inline-block py-1 px-3">
                   <a href="{% url "update_vehicle" vehicle.id %}" class="text-white text-decoration-none">Update</a>

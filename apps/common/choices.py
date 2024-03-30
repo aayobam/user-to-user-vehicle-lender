@@ -16,7 +16,7 @@ VEHICLE_DOCUMENTS = [
 
 
 VEHICLE_TYPES = [
-    ('', 'Select Type'),
+    ('', "Select"),
     ('Sedan', 'Sedan'),
     ('Suv', 'Suv'),
     ('Truck', 'Truck'),
@@ -30,7 +30,7 @@ VEHICLE_TYPES = [
 ]
 
 VEHICLE_MAKES = [
-    ('', 'Select Make'),
+    ('', "Select"),
     ('Toyota', 'Toyota'),
     ('Honda', 'Honda'),
     ('Ford', 'Ford'),
@@ -44,17 +44,20 @@ VEHICLE_MAKES = [
 ]
 
 TRANSMISSION_TYPES = [
+    ('', "Select"),
     ('Manual', 'Manual'),
     ('Auto', 'Auto')
 ]
 
 FUEL_TYPE = [
+    ('', 'Select'),
     ('Gasoline', 'Gasoline'),
     ('Petrol', 'Petrol'),
     ('Diesel', 'Diesel')
 ]
 
 TOTAL_VEHICLE_DOORS = [
+    ('', "Select"),
     ('1', '1'),
     ('2', '2'),
     ('3', '3'),
@@ -66,6 +69,7 @@ TOTAL_VEHICLE_DOORS = [
 ]
 
 TOTAL_PASSENGERS = [
+    ('', "Select"),
     ('2', '2'),
     ('3', '3'),
     ('4', '4'),
@@ -82,7 +86,12 @@ TOTAL_PASSENGERS = [
 
 
 TEMPERATURE_REGULATOR = [
-    ('', 'Select Temperature'),
+    ('', 'Select'),
     ('Air Conditoning', 'Air Conditoning'),
     ('Climate Control', 'Climate Control')
+]
+
+AVAILABILITY_STATUS = [
+    ('Available', 'Available'),
+    ('Unavailable', 'Unavailable')
 ]
