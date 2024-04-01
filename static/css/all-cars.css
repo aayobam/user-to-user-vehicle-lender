@@ -2,12 +2,14 @@
   --custom-pri: #ff5c00;
   --white: #ffffff;
 }
+
 .all-car__hero {
   background: linear-gradient(rgba(255, 92, 0, 0.5), rgba(255, 92, 0, 0.5)),
-    url(../images/hero.webp) no-repeat top center/contain;
+    url(/media/images/hero.webp) no-repeat top center/contain;
 
   /* min-height: 40vh; */
 }
+
 .backdrop {
   backdrop-filter: blur(5px);
   height: auto;
@@ -17,27 +19,35 @@
   justify-content: center;
   flex-direction: column;
 }
+
 .all-car__hero .btn {
   color: var(--custom-pri);
   border-radius: 0;
 }
+
 input[type="text"],
 .form-select {
   height: 100% !important;
   border: none;
-  border-radius: 0; /* Custom border color */
+  border-radius: 0;
+  /* Custom border color */
   border-color: #ff5c00;
 }
+
 select {
   height: 100%;
 }
+
 input[type="text"]:focus,
 .form-select:focus {
   outline: none;
-  border-color: none; /* Custom border color on focus */
-  box-shadow: none; /* Optional: Add a focus shadow */
+  border-color: none;
+  /* Custom border color on focus */
+  box-shadow: none;
+  /* Optional: Add a focus shadow */
   border-color: #ff5c00;
 }
+
 .all-car__hero .container-sm {
   min-height: 50vh;
 }
