@@ -25,7 +25,7 @@
           <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-          <a class="navbar-brand d-none d-lg-block fw-bold fs-4 me-auto" href="/index.html">Vehicle2Rent</a>
+          <a class="navbar-brand d-none d-lg-block fw-bold fs-4 me-auto" href="{% url "home" %}">Vehicle2Rent</a>
           <ul class="navbar-nav mb-2 fw-medium fs-5 mb-lg-0">
             <li class="nav-item">
               <a class="nav-link">{{ user.get_full_name }}</a>
@@ -69,7 +69,7 @@
               </a>
             </li>
             <li class="nav-item fw-bold border-2 border-bottom pt-3">
-              <a class="nav-link d-flex flex-column align-items-center justify-content-center" href="{% url "owner_bookings" %}">
+              <a class="nav-link d-flex flex-column align-items-center justify-content-center" href="{% url "booking_list" %}">
                 <div>
                   <i class="bi bi-journal-album fs-3"></i>
                 </div>
@@ -78,7 +78,7 @@
             </li>
 
              <li class="nav-item fw-bold border-2 border-bottom pt-3">
-              <a class="nav-link d-flex flex-column align-items-center justify-content-center" href="{% url "customer_bookings" %}">
+              <a class="nav-link d-flex flex-column align-items-center justify-content-center" href="{% url "order_list" %}">
                 <div>
                   <i class="bi bi-journal-album fs-3"></i>
                 </div>
@@ -165,7 +165,7 @@
 
               <li class="nav-item fw-bold border-2 border-bottom pt-3">
                 <a class="nav-link d-flex flex-column align-items-center justify-content-center"
-                  href="{% url "owner_bookings" %}">
+                  href="{% url "booking_list" %}">
                   <div>
                     <i class="bi bi-journal-album fs-3"></i>
                   </div>
@@ -175,7 +175,7 @@
 
               <li class="nav-item fw-bold border-2 border-bottom pt-3">
                 <a class="nav-link d-flex flex-column align-items-center justify-content-center"
-                  href="{% url "customer_bookings" %}">
+                  href="{% url "order_list" %}">
                   <div>
                     <i class="bi bi-journal-album fs-3"></i>
                   </div>

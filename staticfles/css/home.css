@@ -2,9 +2,10 @@
   --custom-pri: #ff5c00;
   --white: #ffffff;
 }
+
 /* Hero  section  */
 .hero {
-  background: url(../images/Ellipse1.png) no-repeat right -10px top;
+  background: url(./media/images/Ellipse1.png) no-repeat right -10px top;
 }
 
 .icon {
@@ -13,6 +14,7 @@
   background-color: rgba(255, 92, 0, 0.1);
   color: var(--custom-pri);
 }
+
 .rental-deal__img-wrapper {
   height: 300px;
 }

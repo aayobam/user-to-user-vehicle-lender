@@ -52,10 +52,11 @@
           <div class="bg-white rounded-5 shadow-lg py-5 px-5">
             <h4 class="fw-semibold text-center pt-3 pb-5">Book Your Favorite Vehicle</h4>
 
-            <form action="{% url "book_vehicle" %}" method="post" enctype="multipart/form-data">
+            <form action="{% url "book_vehicle" vehicle_id %}" method="post" enctype="multipart/form-data">
               {% csrf_token %}
               <!-- Email of the user, this will be prefix from the user data -->
-              <input type="hidden" name="vehicle_id" value="{{vehicle.id}}">
+              <input type="hidden" name="vehicle_id" value="{{vehicle_id}}">
+              <h3>Vehicle: {{ vehicle.vehicle_make}}  {{ vehicle.vehcle_type }}  {{ vehicle.model }}</h3>
 
               <div class="mb-3">
                 <label for="email" class="form-label mb-1 fw-medium">Email</label>
@@ -82,29 +83,28 @@
 
               <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
                 <div class="">
-                  <label for="pickUp" class="form-label mb-1 fw-medium">Pick-up date</label>
-                  <input type="date" id="pickUp" name="pickUp" class="form-control" placeholder="" value="{{ vehicle.location }}" required />
+                  <label for="pick-up" class="form-label mb-1 fw-medium">Pick-up date</label>
+                  <input type="date" id="pickUp" name="pick-up" class="form-control" placeholder="" value="{{ vehicle.location }}" required />
                 </div>
 
                 <div class="">
-                  <label for="dropOff" class="form-label mb-1 fw-medium">Drop off date</label>
-                  <input type="date" id="dropOff" name="dropOff" class="form-control" placeholder="" value="{{ vehicle.location }}" required />
+                  <label for="drop-off" class="form-label mb-1 fw-medium">Drop off date</label>
+                  <input type="date" id="dropOff" name="drop-off" class="form-control" placeholder="" value="{{ vehicle.location }}" required />
                 </div>
               </div>
 
               <!-- Location pick up of the user, this will be prefix from the rental data -->
               <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
                 <div class="">
-                  <label for="pickUpLocation" class="form-label mb-1 fw-medium">Pick-up location</label>
-                  <input type="text" id="pickUpLocation" name="pickUpLocation" class="form-control"
-                    placeholder="rental address" required />
+                  <label for="pick-up-location" class="form-label mb-1 fw-medium">Pick-up location</label>
+                  <input type="text" id="pickUpLocation" name="pick-up-location" value="{{ vehicle.pickup_location }}" class="form-control"
+                    placeholder="rental address" disabled required/>
                 </div>
 
                 <div class="">
-                  <label for="dropOffLocation" class="form-label mb-1 fw-medium">Drop-off location
-                  </label>
-                  <input type="text" id="dropOffLocation" name="dropOffLocation" class="form-control"
-                    placeholder="rental address" required />
+                  <label for="drop-of-location" class="form-label mb-1 fw-medium">Drop-off location</label>
+                  <input type="text" id="dropOffLocation" name="drop-of-location" value="{{ vehicle.pickup_location }}" class="form-control"
+                    placeholder="rental address" disabled required/>
                 </div>
               </div>
 

@@ -1,0 +1,82 @@
+{% extends "dashboard.html" %}
+
+
+{% block content %}
+<main>
+  <div class="container-sm">
+    <div class="d-grid col-12 col-md-7 mx-auto py-5">
+      <div class="bg-white rounded-5 shadow-lg py-5 px-5">
+        <h4 class="fw-semibold text-center pt-3 pb-5">Edit Your Booking</h4>
+        <form action="{% url "update_booking" booking.id %}" method="post">
+          <!-- Email of the user, this will be prefix from the user data -->
+          
+          {% csrf_token %}
+          <div class="mb-3">
+            <label for="email" class="form-label mb-1 fw-medium">Email</label>
+            <input type="email" id="email" name="email" class="form-control" placeholder="email@email.com"
+              value="{{ booking.renter.email }}" disabled required />
+          </div>
+
+          <div class="mb-3">
+            <label for="address" class="form-label mb-1 fw-medium">Address</label>
+            <input type="text" id="address" name="address" class="form-control" placeholder="123 my street"
+              value="{{ booking.address }}" required />
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+            <div class="">
+              <label for="city" class="form-label mb-1 fw-medium">City</label>
+              <input type="text" id="city" name="city" class="form-control" placeholder="city"
+                value="{{ booking.city }}" required />
+            </div>
+
+            <div class="">
+              <label for="state" class="form-label mb-1 fw-medium">State</label>
+              <input type="text" id="state" name="state" class="form-control" placeholder="Doe"
+                value="{{ booking.state }}" required />
+            </div>
+
+          </div>
+
+          <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+            <div class="">
+              <label for="pickUp" class="form-label mb-1 fw-medium">Pick-up date</label>
+              <input type="datetime-local" id="pickUp" name="start-date" class="form-control" value="{{booking.start_date|date:'Y-m-d'}}T{{booking.start_date|time:'H:i:s'}}" />
+            </div>
+
+            <div class="">
+              <label for="dropOff" class="form-label mb-1 fw-medium">Drop off date</label>
+              <input type="datetime-local" id="dropOff" name="end-date" class="form-control" value="{{booking.end_date|date:'Y-m-d'}}T{{booking.end_date|time:'H:i:s'}}" />
+            </div>
+          </div>
+
+          <!-- Location pick up of the user, this will be prefix from the rental data -->
+
+          <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
+            <div class="">
+              <label for="pickUpLocation" class="form-label mb-1 fw-medium">Pick-up location</label>
+              <input type="text" id="pickUpLocation" name="pickUpLocation" class="form-control" value="{{ booking.pickup_location }}" disabled required />
+            </div>
+
+            <div class="">
+              <label for="dropOffLocation" class="form-label mb-1 fw-medium">Drop-off location</label>
+              <input type="text" id="dropOffLocation" name="dropOffLocation" class="form-control"
+                placeholder="rental address" value="{{ booking.dropoff_location }}" disabled required />
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="address" class="form-label mb-1 fw-medium">Order Status</label>
+            <input type="text" id="address" name="address" class="form-control" placeholder="123 my street"
+              value="{{ booking.status }}" disabled />
+          </div>
+
+          <button type="submit" class="justify-content-center btn w-100 mt-3 d-flex gap-2 align-items-center fw-bolder shadow custom-btn">
+            <span class="text-white">Update Booking</span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock content %}

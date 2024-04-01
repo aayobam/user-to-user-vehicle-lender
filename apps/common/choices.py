@@ -95,3 +95,9 @@ AVAILABILITY_STATUS = [
     ('Available', 'Available'),
     ('Unavailable', 'Unavailable')
 ]
+
+BOOKING_APPROVAL = [
+    ('Pending', 'Pending'),
+    ('Approved', 'Approved'),
+    ('Declined', 'Declined')
+]

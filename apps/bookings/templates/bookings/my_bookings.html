@@ -1,0 +1,114 @@
+{% extends "dashboard.html" %}
+{% load static %}
+
+{% block content %}
+ 
+  <div class="col-2 d-none d-md-block"></div>
+
+  <div class="bg-light rounded-5 mt-4 shadow-lg py-3 px-3 w-100 table-responsive-lg">
+    {% if bookings %}
+      <table class="table table-light">
+        <caption class="fw-bold fs-5 caption-top">All Bookings</caption>
+        
+        <thead>
+          <tr>
+            <th scope="col">Vehicle</th>
+            <th scope="col">Listed By</th>
+            <th scope="col">Date Booked</th>
+            <th scope="col">Start Date</th>
+            <th scope="col">End Date</th>
+            <th scope="col">Status</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for booking in bookings %}
+            <tr>
+              <th>{{ booking.vehicle.get_full_vehicle_name}}</th>
+              <td>{{ booking.vehicle.owner.get_full_name }}</td>
+              <td>{{ booking.created_on|date }}</td>
+              <td>{{ booking.start_date|date }}</td>
+              <td>{{ booking.end_date|date }}</td>
+               <td>{{ booking.status }}</td>
+
+              <td class="d-flex gap-1">
+                <span class="bg-warning rounded-pill d-inline-block py-1 px-3" >
+                  <a href="{% url "update_booking" booking.id %}" class="text-white text-decoration-none" >Edit</a>
+                </span>
+
+                <!-- Button trigger modal -->
+                <button type="button" class="text-white rounded-pill border-0 d-inline-block py-1 px-3 bg-primary d-inline-block" data-bs-toggle="modal" data-bs-target="#exampleModal" >View</button>
+
+                <span class="bg-danger text-white rounded-pill d-inline-block py-1 px-3" >
+                  <a href="{% url "booking_list" %}" class="text-white text-decoration-none">Cancel</a>
+                </span>
+              </td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <table class="table table-light mt-5">
+        <caption class="fw-bold fs-5 caption-top text-center">No booking(s) available</caption>
+      </table>
+    {% endif %}
+  </div>
+
+  {% if bookings %}
+  <!-- Modal For transactions detail -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
+      <div class="modal-dialog">
+        {% for booking in bookings %}
+          <div class="modal-content">
+            <div class="modal-header align-items-start">
+              <div class="modal-title" id="exampleModalLabel">
+                <h1 class="fs-5">Ref:: 2</h1>
+                <p>Vehicle:: <span class="fw-semibold">{{ booking.vehicle.get_full_vehicle_name }}</span></p>
+              </div>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+            </div>
+
+            <div class="modal-body">
+              <div class="d-flex img-wrapper align-items-center justify-content-center rounded-5 overflow-hidden shadow" >
+                <img src="{{ booking.vehicle.image.url }}" class="img-fluid h-100" alt="image here" />
+              </div>
+
+              <div class="pt-3">
+                <h4>Transaction Details</h4>
+                <div class="d-flex gap-2">
+                  <p class="fs-5 fw-medium">Listed By:</p>
+                  <p class="fs-5">{{ booking.vehicle.owner.get_full_name }}</p>
+                </div>
+
+                <div class="d-flex gap-2">
+                  <p class="fs-5 fw-medium">Price:</p>
+                  <p class="fs-5">{{ booking.vehicle.get_price_per_hour }}</p>
+                </div>
+
+                <div class="d-flex gap-2">
+                  <p class="fs-5 fw-medium">Booked On:</p>
+                  <p class="fs-5">{{ booking.created_on }}</p>
+                </div>
+
+                <div class="d-flex gap-2">
+                  <p class="fs-5 fw-medium">Duration:</p>
+                  <p class="fs-5">{{ booking.get_total_hours }}hrs</p>
+                </div>
+
+                <hr />
+                <div class="d-flex gap-2">
+                  <p class="fs-5 fw-medium">Total:</p>
+                  <p class="fs-5 price fw-medium">${{ booking.get_total_price }}</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
+{% endblock content %}

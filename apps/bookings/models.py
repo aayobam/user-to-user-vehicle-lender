@@ -1,5 +1,6 @@
 from decimal import Decimal
 from math import ceil
+from apps.common import choices
 from django.db import models
 from django.urls import reverse
 from apps.common.base_model import BaseModel
@@ -20,13 +21,15 @@ class Booking(BaseModel):
     total_hours = models.CharField(max_length=50, blank=True, null=True)
     pickup_location = models.CharField(max_length=150, blank=True, null=True)
     dropoff_location = models.CharField(max_length=150, blank=True, null=True)
+    status = models.CharField(max_length=100, choices=choices.BOOKING_APPROVAL, default="Pending")
+
 
     class Meta:
         verbose_name = "Booking"
         verbose_name_plural = "Bookings"
 
     def __str__(self):
-        return f"{self.vehicle.type} Bookings"
+        return f"{self.vehicle.vehicle_type} Bookings"
 
     def get_absolute_url(self):
         return reverse("booking_detail", kwargs={"id": self.id})
@@ -40,7 +43,15 @@ class Booking(BaseModel):
         total_price = Decimal(duration_hours) * self.vehicle.price_per_hour
         return total_price
 
+    def get_drivers_license(self, renter: CustomUser):
+        if renter.document:
+            return self.renter.document.url
+        pass
+
     def save(self, *args, **kwargs):
         self.total_hours = self.get_total_hours()
         self.total_price: Decimal = self.get_total_price()
+        self.renter_driver_license = self.get_drivers_license(self.renter)
+        self.pickup_location = self.vehicle.pickup_location
+        self.dropoff_location = self.vehicle.pickup_location
         return super().save(*args, **kwargs)
