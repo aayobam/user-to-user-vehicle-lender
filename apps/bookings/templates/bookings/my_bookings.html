@@ -40,7 +40,7 @@
                 <button type="button" class="text-white rounded-pill border-0 d-inline-block py-1 px-3 bg-primary d-inline-block" data-bs-toggle="modal" data-bs-target="#exampleModal" >View</button>
 
                 <span class="bg-danger text-white rounded-pill d-inline-block py-1 px-3" >
-                  <a href="{% url "booking_list" %}" class="text-white text-decoration-none">Cancel</a>
+                  <a href="{% url "cancel_booking" booking.id %}" class="text-white text-decoration-none">Cancel</a>
                 </span>
               </td>
             </tr>

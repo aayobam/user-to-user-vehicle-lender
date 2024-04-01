@@ -11,7 +11,8 @@
           <!-- Email of the user, this will be prefix from the user data -->
           
           {% csrf_token %}
-          <div class="mb-3">
+          {{ form.as_p }}
+          {% comment %} <div class="mb-3">
             <label for="email" class="form-label mb-1 fw-medium">Email</label>
             <input type="email" id="email" name="email" class="form-control" placeholder="email@email.com"
               value="{{ booking.renter.email }}" disabled required />
@@ -41,12 +42,12 @@
           <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
             <div class="">
               <label for="pickUp" class="form-label mb-1 fw-medium">Pick-up date</label>
-              <input type="datetime-local" id="pickUp" name="start-date" class="form-control" value="{{booking.start_date|date:'Y-m-d'}}T{{booking.start_date|time:'H:i:s'}}" />
+              <input type="datetime-local" id="pickUp" name="start-date" class="form-control" value="{{booking.start_date|date:'Y-m-d'}}T{{booking.start_date|time:'H:i'}}" />
             </div>
 
             <div class="">
               <label for="dropOff" class="form-label mb-1 fw-medium">Drop off date</label>
-              <input type="datetime-local" id="dropOff" name="end-date" class="form-control" value="{{booking.end_date|date:'Y-m-d'}}T{{booking.end_date|time:'H:i:s'}}" />
+              <input type="datetime-local" id="dropOff" name="end-date" class="form-control" value="{{booking.end_date|date:'Y-m-d'}}T{{booking.end_date|time:'H:i'}}" />
             </div>
           </div>
 
@@ -69,7 +70,7 @@
             <label for="address" class="form-label mb-1 fw-medium">Order Status</label>
             <input type="text" id="address" name="address" class="form-control" placeholder="123 my street"
               value="{{ booking.status }}" disabled />
-          </div>
+          </div> {% endcomment %}
 
           <button type="submit" class="justify-content-center btn w-100 mt-3 d-flex gap-2 align-items-center fw-bolder shadow custom-btn">
             <span class="text-white">Update Booking</span>
