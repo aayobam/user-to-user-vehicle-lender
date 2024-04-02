@@ -16,7 +16,7 @@ class Booking(BaseModel):
     end_date = models.DateTimeField()
     address = models.CharField(max_length=250, blank=True, null=True)
     city = models.CharField(max_length=100, blank=True, null=True)
-    state = models.CharField(max_length=100, blank=True, null=True)
+    county = models.CharField(max_length=100, blank=True, null=True)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     total_hours = models.CharField(max_length=50, blank=True, null=True)
     pickup_location = models.CharField(max_length=150, blank=True, null=True)
