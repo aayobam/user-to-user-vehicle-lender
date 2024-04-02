@@ -118,7 +118,8 @@ class UserProfileView(LoginRequiredMixin, generic.UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.get_object()
-        context["total_booking"] = Booking.objects.select_related("vehicle", "renter").filter(renter=self.request.user)
+        context["total_booking"] = Booking.objects.select_related(
+            "vehicle", "renter").filter(renter=self.request.user)
         return context
 
 
@@ -199,5 +200,6 @@ class ChangePasswordView(LoginRequiredMixin, generic.TemplateView):
         user.set_password(new_password1)
         user.save()
         update_session_auth_hash(request, user)
-        messages.success(request, "password change successfull. your new password would take effect on next login.")
+        messages.success(
+            request, "password change successfull. your new password would take effect on next login.")
         return redirect("user_profile")
