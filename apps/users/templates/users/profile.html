@@ -258,6 +258,12 @@
             <div class="mb-3">
               <label for="profilePicture" class="form-label mb-1 fw-medium">Upload profile picture</label>
               <input class="form-control" type="file" id="formFile" name="profile-picture" value="{{ user.profile_picture.url }}" />
+              <small>Current profile picture:</small>
+              {% if user.profile_picture %}
+                <a href="{{ user.profile_picture.url }}" target="_blank" style="text-decoration: none;">{{ user.profile_picture.name }}</a>
+              {% else %}
+                <p>None</p>
+              {% endif %}
             </div>
 
             <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
@@ -275,14 +281,20 @@
             <div class="mb-3">
               <label for="userName" class="form-label mb-1 fw-medium">Change your drivers license</label>
               <input class="form-control" type="file" id="formFile" name="document" value="{{ user.document }}" />
+              <small>Current drivers license:</small>
+              {% if user.document %}
+                <a href="{{ user.document.url }}" target="_blank" style="text-decoration: none;">{{ user.document.name }}</a>
+              {% else %}
+                <p>None</p>
+              {% endif %}
             </div>
 
             <div class="mb-3">
               <label for="userName" class="form-label mb-1 fw-medium">Description</label>
-              <textarea class="form-control" name="description" value="{{ user.personal_description }}"></textarea>
+              <textarea class="form-control" placeholder="Description..." name="description">{{ user.personal_description }}</textarea>
             </div>
 
-            <button type="button"
+            <button type="submit"
               class="justify-content-center btn w-100 mt-3 d-flex gap-2 align-items-center fw-bolder shadow custom-btn">
               <span class="text-white">Edit Profile</span>
             </button>

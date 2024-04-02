@@ -1,7 +1,6 @@
 {% extends "dashboard.html" %}
 {% load static %}
 
-
 {% block content %}
   <div class="bg-light mt-4 rounded-5 shadow-lg py-3 px-3 w-100 table-responsive-lg">
     <table class="table table-light">
@@ -35,72 +34,71 @@
                 </span>
 
                 <!-- Button trigger modal -->
-                <button type="button" class="text-white rounded-pill border-0 d-inline-block py-1 px-3 bg-primary d-inline-block" data-bs-toggle="modal" data-bs-target="#exampleModal">View</button>
+                <button type="button" class="text-white rounded-pill border-0 d-inline-block py-1 px-3 bg-primary d-inline-block view-button" data-bs-toggle="modal" data-bs-target="#exampleModal{{ order.id }}">View</button>
 
-                <span
-                  class="bg-danger text-white rounded-pill d-inline-block py-1 px-3">
+                <span class="bg-danger text-white rounded-pill d-inline-block py-1 px-3">
                   <a href="{% url "cancel_order" order.id %}" class="text-white text-decoration-none">Cancel</a>
                 </span >
               </td>
             </tr>
+
+            <!-- Modal For order detail -->
+            <div class="modal fade" id="exampleModal{{ order.id }}" tabindex="-1" aria-labelledby="exampleModalLabel{{ order.id }}" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header align-items-start">
+                    <div class="modal-title" id="exampleModalLabel{{ order.id }}">
+                      <p>Vehicle: <span class="fw-semibold">{{ order.vehicle.get_full_vehicle_name }}</span></p>
+                    </div>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                  </div>
+                  <div class="modal-body">
+                    <div class="d-flex img-wrapper align-items-center justify-content-center rounded-5 overflow-hidden shadow">
+                      <img src="{{ order.vehicle.image.url }}" class="img-fluid h-100" alt="{{ order.vehicle.get_full_vehicle_name }}" />
+                    </div>
+
+                    <div class="pt-3">
+                      <h4>Transaction Details</h4>
+                      <div class="d-flex gap-2">
+                        <p class="fs-5 fw-medium">Listed By:</p>
+                        <p class="fs-5">{{ order.vehicle.owner.get_full_name }}</p>
+                      </div>
+
+                      <div class="d-flex gap-2">
+                        <p class="fs-5 fw-medium">Price:</p>
+                        <p class="fs-5">${{ order.vehicle.price_per_hour }}/hr</p>
+                      </div>
+
+                      <div class="d-flex gap-2">
+                        <p class="fs-5 fw-medium">Booked On:</p>
+                        <p class="fs-5">{{ order.created_on|date }}</p>
+                      </div>
+
+                      <div class="d-flex gap-2">
+                        <p class="fs-5 fw-medium">Duration:</p>
+                        <p class="fs-5">{{ order.get_total_hours}} hrs</p>
+                      </div>
+
+                      <hr />
+                      <div class="d-flex gap-2">
+                        <p class="fs-5 fw-medium">Total:</p>
+                        <p class="fs-5 price fw-medium">${{ order.get_total_price }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                  </div>
+                </div>
+              </div>
+            </div>
           {% endfor %}
         </tbody>
       {% else %}
         <table class="table table-light mt-5">
-          <caption class="fw-bold fs-5 caption-top text-center">No order(s) available</caption>
+          <caption class="fw-bold fs-5 caption-top text-center">No orders available</caption>
         </table>
       {% endif %}
     </table>
-  </div>
-
-  <!-- Modal For transactions detail -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" >
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header align-items-start">
-          <div class="modal-title" id="exampleModalLabel">
-            <p>Vehicle:: <span class="fw-semibold">{{ instance.vehicle.get_full_vehicle_name }}</span></p>
-          </div>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
-        </div>
-        <div class="modal-body">
-          <div class="d-flex img-wrapper align-items-center justify-content-center rounded-5 overflow-hidden shadow" >
-            <img src="./media/images/hero.webp" class="img-fluid h-100" alt="" />
-          </div>
-
-          <div class="pt-3">
-            <h4>Transaction Details</h4>
-            <div class="d-flex gap-2">
-              <p class="fs-5 fw-medium">Listed By:</p>
-              <p class="fs-5">John Doe</p>
-            </div>
-
-            <div class="d-flex gap-2">
-              <p class="fs-5 fw-medium">Price:</p>
-              <p class="fs-5">$40/day</p>
-            </div>
-
-            <div class="d-flex gap-2">
-              <p class="fs-5 fw-medium">Booked On:</p>
-              <p class="fs-5">3/3/2025</p>
-            </div>
-
-            <div class="d-flex gap-2">
-              <p class="fs-5 fw-medium">Duration:</p>
-              <p class="fs-5">3 days</p>
-            </div>
-
-            <hr />
-            <div class="d-flex gap-2">
-              <p class="fs-5 fw-medium">Total:</p>
-              <p class="fs-5 price fw-medium">$120</p>
-            </div>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" >Close</button>
-        </div>
-      </div>
-    </div>
   </div>
 {% endblock content %}

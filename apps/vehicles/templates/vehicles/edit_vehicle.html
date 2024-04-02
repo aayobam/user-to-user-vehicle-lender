@@ -128,8 +128,12 @@
           <div class="mb-3">
             <label for="vehicle-reg-cert" class="form-label mb-1 fw-medium">Upload Vehicle Registration Certificate</label>
             <input class="form-control" type="file" name="vehicle-reg-cert" id="formFile"/>
-            <small>present registration certificate:</small>
-            <a href="{{ vehicle.registration_certificate.url }}" target="_blank" style="text-decoration: none;">{{ vehicle.registration_certificate.name }}</a>
+            <small>Current registration certificate:</small>
+            {% if vehicle.registration_certificate %}
+              <a href="{{ vehicle.registration_certificate.url }}" target="_blank" style="text-decoration: none;">{{ vehicle.registration_certificate.name }}</a>
+            {% else %}
+              <p>None</p>
+            {% endif %}
           </div>
 
           <div class="mb-3">
