@@ -15,6 +15,7 @@ class BookVehicleView(LoginRequiredMixin, generic.CreateView):
     template_name = 'bookings/book_vehicle.html'
     success_url = reverse_lazy("booking_list")
 
+    # this prefills the form with initial data.
     def get_initial(self):
         initial = super().get_initial()
         vehicle = get_object_or_404(Vehicle, id=self.kwargs['vehicle_id'])
@@ -26,17 +27,29 @@ class BookVehicleView(LoginRequiredMixin, generic.CreateView):
         context = super().get_context_data(**kwargs)
         vehicle_id = self.kwargs.get('vehicle_id')
         vehicle_obj = get_object_or_404(Vehicle, id=vehicle_id)
-        context['vehicle_id'] = vehicle_id
         context["vehicle"] = vehicle_obj
         return context
 
     def form_valid(self, form):
         vehicle_id = self.kwargs.get('vehicle_id')
         vehicle = get_object_or_404(Vehicle, id=vehicle_id)
-        booking = form.save(commit=False)
-        booking.vehicle = vehicle
-        booking.renter = self.request.user
-        booking.save()
+        start_date = form.instance.start_date
+        end_date = form.instance.end_date
+
+        if not self.is_booking_available(vehicle, start_date, end_date):
+            messages.error(
+                self.request, "bookings not available, please select a different date or check other vehicles.")
+            self.form_invalid(form)
+
+        if vehicle.owner == self.request.user:
+            messages.error(
+                self.request, "you cannot book your own vehicle listing(s).")
+            self.form.invalid(form)
+
+        instance = form.save(commit=False)
+        instance.vehicle = vehicle
+        instance.renter = self.request.user
+        instance.save()
         messages.success(self.request, 'Booking successful.')
         return super().form_valid(form)
 
@@ -44,6 +57,13 @@ class BookVehicleView(LoginRequiredMixin, generic.CreateView):
         messages.error(
             self.request, "could not process booking, please try again")
         return super().form_invalid(form)
+
+    def is_booking_available(self, vehicle, start_date, end_date):
+        bookings = Booking.objects.filter(vehicle=vehicle)
+        for booking in bookings:
+            if not (end_date < booking.start_date or start_date > booking.end_date):
+                return False
+        return True
 
 
 class OrdersListView(LoginRequiredMixin, generic.ListView):

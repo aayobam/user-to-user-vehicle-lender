@@ -118,7 +118,7 @@ class UserProfileView(LoginRequiredMixin, generic.UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.get_object()
-        context["total_booking"] = Booking.objects.select_related("vehicle", "renter").filter(vehicle__owner=self.request.user)
+        context["total_booking"] = Booking.objects.select_related("vehicle", "renter").filter(renter=self.request.user)
         return context
 
 
