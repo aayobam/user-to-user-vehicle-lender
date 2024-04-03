@@ -115,7 +115,7 @@
 
             <div class="mb-3">
               <label for="profilePicture" class="form-label mb-1 fw-medium">Upload profile picture</label>
-              <input class="form-control" type="file" id="formFile" name="profile-picture" value="{{ user.profile_picture.url }}" />
+              <input class="form-control" type="file" id="formFile" name="profile-picture" />
               <small>Current profile picture:</small>
               {% if user.profile_picture %}
                 <a href="{{ user.profile_picture.url }}" target="_blank" style="text-decoration: none;">{{ user.profile_picture.name }}</a>

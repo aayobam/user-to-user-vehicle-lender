@@ -13,6 +13,7 @@ from apps.common import choices
 from .models import CustomUser
 from apps.common.utils import Validators
 from .mixings import is_authenticated
+from django.db import transaction
 
 
 @method_decorator(is_authenticated, name="dispatch")
@@ -21,6 +22,7 @@ class RegisterUserView(generic.CreateView):
     fields = '__all__'
     template_name = "users/register.html"
 
+    @transaction.atomic
     def post(self, request, *args, **kwargs):
         allowed_content_types = ['application/pdf',
                                  'image/jpeg', 'image/jpg', 'image/png']
@@ -88,32 +90,42 @@ class UserProfileView(LoginRequiredMixin, generic.UpdateView):
     Users can view their profiles and perform updates.
     """
     model = CustomUser
-    fields = ['first_name', 'last_name', 'phone_no', 'document', 'email']
+    fields = "__all__"
     template_name = "users/profile.html"
     context_object_name = "user"
 
     def get_object(self):
         return self.request.user
 
-    def patch_user(self, user, data):
-        for key, value in data.items():
+    def patch_user(self, user, user_data):
+        for key, value in user_data.items():
             setattr(user, key, value)
         user.save()
 
+    @transaction.atomic
     def post(self, request, *args, **kwargs):
-        user = self.get_object()
         user_data = {
             "first_name": request.POST.get("firstName"),
             "last_name": request.POST.get("lastName"),
             "phone_no": request.POST.get("phoneNumber"),
-            "document": request.FILES.get("document"),
-            "profile_picture": request.FILES.get("profile-picture"),
             "email": request.POST.get("email"),
             "personal_description": request.POST.get("description")
         }
+
+        document = request.FILES.get("document")
+        profile_picture = request.FILES.get("profile-picture")
+
+        if document:
+            user_data['document'] = document
+
+        if profile_picture:
+            user_data["profile_picture"] = profile_picture
+
+        user = self.get_object()
         self.patch_user(user, user_data)
-        messages.success(request, "profile updated successfully")
+        messages.success(request, "Profile updated successfully")
         return redirect("user_profile")
+
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -137,6 +149,7 @@ class UserLoginView(generic.TemplateView):
     template_name = "users/login.html"
     success_url = reverse_lazy('user_profile')
 
+    @transaction.atomic
     def post(self, request):
         email = request.POST.get('email')
         password = request.POST.get('password')
@@ -168,6 +181,7 @@ class ChangePasswordView(LoginRequiredMixin, generic.TemplateView):
     template_name = 'users/change_password.html'
     success_url = reverse_lazy("user_profile")
 
+    @transaction.atomic
     def post(self, request, *args, **kwargs):
         old_password: str = request.POST.get("old_password")
         new_password1: str = request.POST.get('new_password1')

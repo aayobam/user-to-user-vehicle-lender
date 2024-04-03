@@ -1,5 +1,4 @@
-from typing import Any
-from django.db.models.query import QuerySet
+from django.db.models import Q
 from django.views import generic
 from apps.vehicles.models import Vehicle
 from apps.common.choices import VEHICLE_MAKES, VEHICLE_TYPES
@@ -16,13 +15,18 @@ class HomeView(generic.ListView):
         vehicle_make_query = self.request.GET.get("vehicle_make")
         vehicle_type_query = self.request.GET.get("vehicle_typ")
 
-        if vehicle_make_query != "" and vehicle_make_query is not None:
-            qs = queryset.filter(vehicle_make__icontains=vehicle_make_query)
+        if vehicle_make_query:
+            qs = queryset.filter(vehicle_make__iexact=vehicle_make_query)
             return qs
 
-        if vehicle_type_query != "" and vehicle_type_query is not None:
-            qs = queryset.filter(vehicle_type__contains=vehicle_type_query)
+        if vehicle_type_query:
+            qs = queryset.filter(vehicle_type__iexact=vehicle_type_query)
             return qs
+
+        if vehicle_make_query and vehicle_make_query:
+            chained_qs = Q(vehicle_make__iexact=vehicle_make_query) & Q(vehicle_type__iexact=vehicle_type_query)
+            qs = queryset.filter(chained_qs)
+            return qs if qs else None
 
         return queryset
 
