@@ -4,17 +4,14 @@
 <link rel="stylesheet" href="{% static " ./css/auth.css" %}" />{% endblock css %}
 
 {% block content %}
-<main class="main">
-  <div class="container-sm">
-    <div class="custom-container">
-      <div class="wrapper py-5 w-100">
-        <div class="d-flex justify-content-center flex-column pb-2">
-          <!-- <GoBackButton /> -->
-          <h2 class="fw-medium fs-5">Registration</h2>
-          <p>Create an account to get the best out of Vehicle2Rent</p>
-        </div>
-
-        <form action="{% url 'create_user' %}" method="post" enctype="multipart/form-data">
+<main class="main d-flex justify-content-center py-4 px-3">
+      <div class="custom-container w-100">
+        <div class="py-5">
+          <div class="d-flex justify-content-center flex-column pb-2">
+            <h2 class="fw-medium fs-5 text-center">Registration</h2>
+            <p class="text-center">Create an account to get the best out of Vehicle2Rent</p>
+          </div>
+          <form action="{% url 'create_user' %}" method="post" enctype="multipart/form-data">
           {% csrf_token %}
           <div class="row row-cols-1 row-cols-md-2 g-3 mb-3">
             <div class="">
@@ -80,9 +77,8 @@
           </button>
 
         </form>
-        <p class="no-acc">Already have an account? <a href="{% url 'user_login' %}">Login</a></p>
+          <p class="no-acc">Already have an account? <a href="{% url 'user_login' %}">Login</a></p>
+        </div>
       </div>
-    </div>
-  </div>
-</main>
+    </main>
 {% endblock content %}

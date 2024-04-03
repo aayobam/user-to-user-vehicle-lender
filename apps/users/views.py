@@ -43,23 +43,19 @@ class RegisterUserView(generic.CreateView):
             return redirect("create_user")
 
         if not Validators.validate_password(user_data.get("password"), confirm_password):
-            messages.error(
-                self.request, "password and confirm password do not match, please try again.")
+            messages.error(self.request, "password and confirm password do not match, please try again.")
             return redirect("create_user")
 
         if not Validators.validate_password_length(user_data.get("password")):
-            messages.error(
-                self.request, "password lenght cannot be less than 10, please try again.")
+            messages.error(self.request, "password lenght cannot be less than 10, please try again.")
             return redirect("create_user")
 
         if not document:
-            messages.error(
-                request, f"Please upload your identification document.")
+            messages.error(request, f"Please upload your identification document.")
             return redirect("create_user")
 
         if document.size > FILE_UPLOAD_MAX_MEMORY_SIZE:
-            messages.warning(
-                request, f"Document cannot be larger than {Validators.convert_to_megabyte(document.file_size)}MB.")
+            messages.warning(request, f"Document cannot be larger than {Validators.convert_to_megabyte(document.file_size)}MB.")
             return redirect("create_user")
 
         fs = FileSystemStorage()
@@ -67,8 +63,7 @@ class RegisterUserView(generic.CreateView):
         file_type = mimetypes.guess_type(filename)[0]
 
         if file_type not in allowed_content_types:
-            messages.info(
-                request, "invalid file  upload, only pdf, png, jpg, jpeg file types are accepted.")
+            messages.info(request, "invalid file  upload, only pdf, png, jpg, jpeg file types are accepted.")
             return redirect('create_user')
 
         user: CustomUser = self.model.objects.create(**user_data)
@@ -89,6 +84,9 @@ class RegisterUserView(generic.CreateView):
 
 
 class UserProfileView(LoginRequiredMixin, generic.UpdateView):
+    """
+    Users can view their profiles and perform updates.
+    """
     model = CustomUser
     fields = ['first_name', 'last_name', 'phone_no', 'document', 'email']
     template_name = "users/profile.html"
@@ -118,12 +116,14 @@ class UserProfileView(LoginRequiredMixin, generic.UpdateView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context["user"] = self.get_object()
-        context["total_booking"] = Booking.objects.select_related(
-            "vehicle", "renter").filter(renter=self.request.user)
+        context["total_booking"] = Booking.objects.select_related("vehicle", "renter").filter(renter=self.request.user)
         return context
 
 
 class DeleteUserView(LoginRequiredMixin, generic.DeleteView):
+    """
+    users can delete their profile, but this button doesn't exist on template. (optional)
+    """
     queryset = CustomUser.objects.all()
     template_name = "users/delete.html"
     success_url = reverse_lazy("user_login")
@@ -155,16 +155,11 @@ class UserLoginView(generic.TemplateView):
         return redirect("user_login")
 
 
-# class UserLogoutView(generic.TemplateView):
-#     def get(self, request):
-#         logout(request)
-#         messages.success(self.request, "logout successful.")
-#         return redirect('user_login')
-
-def logout_view(request):
-    logout(request)
-    messages.success(request, "logout successful.")
-    return redirect('user_login')
+class UserLogoutView(generic.TemplateView):
+    def get(self, request):
+        logout(request)
+        messages.success(self.request, "logout successful.")
+        return redirect('user_login')
 
 
 class ChangePasswordView(LoginRequiredMixin, generic.TemplateView):
@@ -183,23 +178,19 @@ class ChangePasswordView(LoginRequiredMixin, generic.TemplateView):
             return redirect("change_password")
 
         if len(new_password1) < 10:
-            messages.warning(
-                request, "password length should not be less than 10.")
+            messages.warning(request, "password length should not be less than 10.")
             return redirect("change_password")
 
         if old_password == new_password1:
-            messages.warning(
-                request, "your new password cannot be the same as your old password.")
+            messages.warning(request, "your new password cannot be the same as your old password.")
             return redirect("change_password")
 
         if new_password1 != new_password2:
-            messages.warning(
-                request, "new_password1 and new_password2 do not match.")
+            messages.warning(request, "new_password1 and new_password2 do not match.")
             return redirect("change_password")
 
         user.set_password(new_password1)
         user.save()
         update_session_auth_hash(request, user)
-        messages.success(
-            request, "password change successfull. your new password would take effect on next login.")
+        messages.success(request, "password change successfull. your new password would take effect on next login.")
         return redirect("user_profile")

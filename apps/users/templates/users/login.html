@@ -3,15 +3,12 @@
 {% block css %}<link rel="stylesheet" href="{% static "./css/auth.css" %}"/>{% endblock css %}
 
 {% block content %}
-  <main class="main">
-    <div class="container-sm d">
-      <div class="custom-container shadow-3 d-flex align-items-center">
-        <div class="wrapper py-5 w-100">
-          <div class="d-flex justify-content-center pb-2">
-            <h2 class="fw-medium fs-4 mb-3">Login To Vehicle2Rent</h2>
-          </div>
+  <main class="main d-flex justify-content-center py-4 px-3">
+      <div class="custom-container shadow-3 w-100">
+        <div class="py-5">
+          <h2 class="fw-medium fs-4 mb-3 text-center">Login To Cab2Rent</h2>
 
-          <form action="{% url "user_login" %}" method="post">
+           <form action="{% url "user_login" %}" method="post">
             {% csrf_token %}
             <div class="mb-3">
               <label for="email" class="form-label mb-1 fw-medium">Email</label>
@@ -36,6 +33,5 @@
           <p class="no-acc">Don't have an account? <a href="{% url "create_user" %}">Create account</a></p>
         </div>
       </div>
-    </div>
-  </main>
+    </main>
 {% endblock content %}

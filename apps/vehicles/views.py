@@ -1,14 +1,11 @@
 import mimetypes
-from django.db.models import Q
 from django.db.models.base import Model as Model
-from django.db.models.query import QuerySet
-from django.http import HttpRequest, HttpResponse
+from django.http import  HttpResponse
 from django.urls import reverse_lazy
 from django.views import generic
 from django.contrib import messages
 from django.contrib.auth.mixins import LoginRequiredMixin
 from apps.common.utils import Validators
-from apps.vehicles.mixins import VehicleOwnerMixing
 from apps.vehicles.models import Vehicle
 from django.shortcuts import redirect
 from core.settings import FILE_UPLOAD_MAX_MEMORY_SIZE
@@ -18,6 +15,10 @@ from apps.common import choices
 
 
 class CreateVehicleView(LoginRequiredMixin, generic.CreateView):
+
+    """
+    Enables users to add their vehicles.
+    """
     model = Vehicle
     fields = "__all__"
     template_name = "vehicles/add_vehicle.html"
@@ -53,8 +54,7 @@ class CreateVehicleView(LoginRequiredMixin, generic.CreateView):
             return redirect("add_vehicle")
 
         if vehicle_image.size > FILE_UPLOAD_MAX_MEMORY_SIZE:
-            messages.warning(
-                request, f"image cannot be larger than {Validators.convert_to_megabyte(vehicle_image.file_size)}MB.")
+            messages.warning(request, f"image cannot be larger than {Validators.convert_to_megabyte(vehicle_image.file_size)}MB.")
             return redirect("add_vehicle")
 
         fs = FileSystemStorage()
@@ -62,19 +62,16 @@ class CreateVehicleView(LoginRequiredMixin, generic.CreateView):
         file_type = mimetypes.guess_type(filename)[0]
 
         if file_type not in allowed_image_types:
-            messages.info(
-                request, "invalid image file  upload, only png, jpg, jpeg and pdf file types are accepted.")
+            messages.info(request, "invalid image file  upload, only png, jpg, jpeg and pdf file types are accepted.")
             return redirect('add_vehicle')
 
         # validates vehicle registration certificate.
         if not vehicle_reg_cert:
-            messages.error(
-                request, f"Please upload your registration certificate.")
+            messages.error(request, f"Please upload your registration certificate.")
             return redirect("add_vehicle")
 
         if vehicle_reg_cert.size > FILE_UPLOAD_MAX_MEMORY_SIZE:
-            messages.warning(
-                request, f"certificate cannot be larger than {Validators.convert_to_megabyte(vehicle_reg_cert.file_size)}MB.")
+            messages.warning(request, f"certificate cannot be larger than {Validators.convert_to_megabyte(vehicle_reg_cert.file_size)}MB.")
             return redirect("add_vehicle")
 
         fs = FileSystemStorage()
@@ -82,8 +79,7 @@ class CreateVehicleView(LoginRequiredMixin, generic.CreateView):
         file_type = mimetypes.guess_type(filename)[0]
 
         if file_type not in allowed_content_types:
-            messages.info(
-                request, "invalid file  upload, only png, jpg, jpeg and pdf file types are accepted.")
+            messages.info(request, "invalid file  upload, only png, jpg, jpeg and pdf file types are accepted.")
             return redirect('add_vehicle')
 
         vehicle_data["image"] = vehicle_image
@@ -94,6 +90,9 @@ class CreateVehicleView(LoginRequiredMixin, generic.CreateView):
         return redirect("vehicle_list")
 
     def get_context_data(self, **kwargs):
+        """
+        Returns these context names to the template so as to serve through the html form fields.
+        """
         context = super().get_context_data(**kwargs)
         context["VEHICLE_MAKES"] = choices.VEHICLE_MAKES
         context["VEHICLE_TYPES"] = choices.VEHICLE_TYPES
@@ -107,6 +106,9 @@ class CreateVehicleView(LoginRequiredMixin, generic.CreateView):
 
 
 class VehicleListView(LoginRequiredMixin, generic.ListView):
+    """
+    Returns all vehicle listed by the owner to the owner dashboard.
+    """
     model = Vehicle
     template_name = "vehicles/vehicle_list.html"
     context_object_name = "vehicles"
@@ -117,6 +119,9 @@ class VehicleListView(LoginRequiredMixin, generic.ListView):
 
 
 class VehicleDetailView(generic.DetailView):
+    """
+    Returns vehicle details on the booking page.
+    """
     model = Vehicle
     template_name = "vehicles/vehicle_details.html"
     context_object_name = "vehicle"
@@ -124,6 +129,10 @@ class VehicleDetailView(generic.DetailView):
 
 
 class UpdateVehicleView(LoginRequiredMixin, generic.UpdateView):
+
+    """
+    Enable vehicle owners to update already listed vehicle (s)
+    """
     model = Vehicle
     fields = "__all__"
     template_name = "vehicles/edit_vehicle.html"
@@ -164,13 +173,11 @@ class UpdateVehicleView(LoginRequiredMixin, generic.UpdateView):
             file_type = mimetypes.guess_type(filename)[0]
 
             if file_type not in allowed_content_types:
-                messages.info(
-                    request, "Invalid file upload, only png, jpg, jpeg file types are accepted.")
+                messages.info(request, "Invalid file upload, only png, jpg, jpeg file types are accepted.")
                 return redirect('create_user')
 
             if vehicle_image.size > FILE_UPLOAD_MAX_MEMORY_SIZE:
-                messages.warning(
-                    request, f"Document cannot be larger than {Validators.convert_to_megabyte(vehicle_image.file_size)}MB.")
+                messages.warning(request, f"Document cannot be larger than {Validators.convert_to_megabyte(vehicle_image.file_size)}MB.")
                 return redirect("create_user")
 
             vehicle_data["image"] = vehicle_image
@@ -187,9 +194,8 @@ class UpdateVehicleView(LoginRequiredMixin, generic.UpdateView):
             if vehicle_reg_cert.size > FILE_UPLOAD_MAX_MEMORY_SIZE:
                 messages.warning(request, f"certificate cannot be larger than {Validators.convert_to_megabyte(vehicle_reg_cert.file_size)}MB.")
                 return redirect("add_vehicle")
-            
-            vehicle_data["registration_certificate"] = vehicle_reg_cert
 
+            vehicle_data["registration_certificate"] = vehicle_reg_cert
 
         vehicle_obj = self.get_object()
         self.patch_vehicle(vehicle_obj, vehicle_data)
@@ -197,6 +203,9 @@ class UpdateVehicleView(LoginRequiredMixin, generic.UpdateView):
         return redirect("update_vehicle", vehicle_obj.id)
 
     def get_context_data(self, **kwargs):
+        """
+        Returns these context names to the template so as to serve through the html form fields.
+        """
         context = super().get_context_data(**kwargs)
         context["VEHICLE_MAKES"] = choices.VEHICLE_MAKES
         context["VEHICLE_TYPES"] = choices.VEHICLE_TYPES
@@ -211,6 +220,9 @@ class UpdateVehicleView(LoginRequiredMixin, generic.UpdateView):
 
 
 class DeleteVehicleView(LoginRequiredMixin, generic.DeleteView):
+    """
+    Enables owners to delete their vehicle listings.
+    """
     model = Vehicle
     context_object_name = "vehicle"
     pk_url_kwarg = "id"

@@ -20,7 +20,7 @@
           {% for vehicle in vehicles %}
             <tr>
               <th scope="row">1</th>
-              <td>{{ vehicle.model }}</td>
+              <td>{{ vehicle.get_full_vehicle_name }}</td>
               <td>{{ vehicle.created_on|date }}</td>
               <td>{{ vehicle.availability_status }}</td>
               <td class="d-flex gap-1">

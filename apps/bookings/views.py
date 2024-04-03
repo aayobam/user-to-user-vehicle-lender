@@ -1,4 +1,3 @@
-from datetime import datetime
 from django.contrib import messages
 from django.urls import reverse_lazy
 from django.shortcuts import get_object_or_404, redirect
@@ -11,11 +10,15 @@ from apps.common import choices
 
 
 class BookVehicleView(LoginRequiredMixin, generic.CreateView):
+
+    """
+    Enables users to book for vehicle available for leasing.
+    """
     form_class = CreateBookingForm
     template_name = 'bookings/book_vehicle.html'
     success_url = reverse_lazy("booking_list")
 
-    # this prefills the form with initial data.
+    # This prefills the form with initial data.
     def get_initial(self):
         initial = super().get_initial()
         vehicle = get_object_or_404(Vehicle, id=self.kwargs['vehicle_id'])
@@ -23,6 +26,7 @@ class BookVehicleView(LoginRequiredMixin, generic.CreateView):
         initial['dropoff_location'] = vehicle.pickup_location
         return initial
 
+    # gets vehicle data through the vehicle id suppled on the path and returns to the final booking template.
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         vehicle_id = self.kwargs.get('vehicle_id')
@@ -37,13 +41,11 @@ class BookVehicleView(LoginRequiredMixin, generic.CreateView):
         end_date = form.instance.end_date
 
         if not self.is_booking_available(vehicle, start_date, end_date):
-            messages.error(
-                self.request, "bookings not available, please select a different date or check other vehicles.")
+            messages.error(self.request, "bookings not available, please select a different date or check other vehicles.")
             self.form_invalid(form)
 
         if vehicle.owner == self.request.user:
-            messages.error(
-                self.request, "you cannot book your own vehicle listing(s).")
+            messages.error(self.request, "you cannot book your own vehicle listing(s).")
             self.form.invalid(form)
 
         instance = form.save(commit=False)
@@ -54,8 +56,7 @@ class BookVehicleView(LoginRequiredMixin, generic.CreateView):
         return super().form_valid(form)
 
     def form_invalid(self, form):
-        messages.error(
-            self.request, "could not process booking, please try again")
+        messages.error(self.request, "could not process booking, please try again")
         return super().form_invalid(form)
 
     def is_booking_available(self, vehicle, start_date, end_date):
@@ -93,6 +94,9 @@ class BookingListView(LoginRequiredMixin, generic.ListView):
 
 
 class UpdateBookingView(LoginRequiredMixin, generic.UpdateView):
+    """
+    Enables users who already booked a vehicle to update their bookings.
+    """
     queryset = Booking.objects.all()
     form_class = UpdateBookingForm
     template_name = "bookings/edit_booking.html"
@@ -110,6 +114,9 @@ class UpdateBookingView(LoginRequiredMixin, generic.UpdateView):
 
 
 class UpdateOrderView(LoginRequiredMixin, generic.UpdateView):
+    """
+    Enables vehicle owners to update their existing orders.
+    """
     model = Booking
     fields = "__all__"
     template_name = "bookings/edit_order.html"
@@ -139,6 +146,9 @@ class UpdateOrderView(LoginRequiredMixin, generic.UpdateView):
 
 
 class CancelBookingView(LoginRequiredMixin, generic.DeleteView):
+    """
+    Enables all users be able to cancel their bookings.
+    """
     model = Booking
     context_object_name = "booking"
     pk_url_kwarg = "id"
@@ -151,6 +161,9 @@ class CancelBookingView(LoginRequiredMixin, generic.DeleteView):
 
 
 class CancelOrderView(LoginRequiredMixin, generic.DeleteView):
+    """
+    Enables all users be able to cancel their orders.
+    """
     model = Booking
     context_object_name = "order"
     pk_url_kwarg = "id"
