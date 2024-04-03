@@ -34,7 +34,7 @@ class RegisterUserView(generic.CreateView):
             "password": request.POST.get("password"),
         }
         document = user_data.get("document")
-        confirm_password = request.POST.get("confirm_password")
+        confirm_password = request.POST.get("confirm-password")
 
         email = user_data.get("email")
 
@@ -106,8 +106,10 @@ class UserProfileView(LoginRequiredMixin, generic.UpdateView):
             "first_name": request.POST.get("firstName"),
             "last_name": request.POST.get("lastName"),
             "phone_no": request.POST.get("phoneNumber"),
-            "document": request.FILES.get("formFile"),
-            "email": request.POST.get("email")
+            "document": request.FILES.get("document"),
+            "profile_picture": request.FILES.get("profile-picture"),
+            "email": request.POST.get("email"),
+            "personal_description": request.POST.get("description")
         }
         self.patch_user(user, user_data)
         messages.success(request, "profile updated successfully")

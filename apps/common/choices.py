@@ -16,7 +16,7 @@ VEHICLE_DOCUMENTS = [
 
 
 VEHICLE_TYPES = [
-    ('', "Select"),
+    ('', "Select Type"),
     ('Sedan', 'Sedan'),
     ('Suv', 'Suv'),
     ('Truck', 'Truck'),
@@ -30,7 +30,7 @@ VEHICLE_TYPES = [
 ]
 
 VEHICLE_MAKES = [
-    ('', "Select"),
+    ('', "Select Make"),
     ('Toyota', 'Toyota'),
     ('Honda', 'Honda'),
     ('Ford', 'Ford'),

@@ -13,7 +13,8 @@ class Validators:
 
     @staticmethod
     def validate_file_size(document):
-        allowed_content_types = ['application/pdf', 'image/jpeg', 'image/jpg', 'image/png']
+        allowed_content_types = ['application/pdf',
+                                 'image/jpeg', 'image/jpg', 'image/png']
         if not document:
             messages.error("No file selected.....")
 
@@ -32,8 +33,8 @@ class Validators:
     @staticmethod
     def validate_password(password: str, confirm_password: str):
         if confirm_password != password:
-            return True
-        return False
+            return False
+        return True
 
     @staticmethod
     def validate_password_length(password: str):
