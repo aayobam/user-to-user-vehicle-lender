@@ -13,7 +13,7 @@ class HomeView(generic.ListView):
     def get_queryset(self):
         queryset = super().get_queryset()
         vehicle_make_query = self.request.GET.get("vehicle_make")
-        vehicle_type_query = self.request.GET.get("vehicle_typ")
+        vehicle_type_query = self.request.GET.get("vehicle_type")
 
         if vehicle_make_query:
             qs = queryset.filter(vehicle_make__iexact=vehicle_make_query)
@@ -26,7 +26,7 @@ class HomeView(generic.ListView):
         if vehicle_make_query and vehicle_make_query:
             chained_qs = Q(vehicle_make__iexact=vehicle_make_query) & Q(vehicle_type__iexact=vehicle_type_query)
             qs = queryset.filter(chained_qs)
-            return qs if qs else None
+            return qs
 
         return queryset
 

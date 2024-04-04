@@ -41,7 +41,7 @@ class BookVehicleView(LoginRequiredMixin, generic.CreateView):
         end_date = form.instance.end_date
 
         if start_date.time == end_date.time:
-            messages.error(self.request, "use and return a vehicle in the same period of time.")
+            messages.error(self.request, "you cannot use and return a vehicle in the same period of time.")
 
         if not self.is_booking_available(vehicle, start_date, end_date):
             messages.error(self.request, "bookings not available, please select a different date or check other vehicles.")

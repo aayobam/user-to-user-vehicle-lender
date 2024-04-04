@@ -1,8 +1,3 @@
-from typing import Any
-
-from django.shortcuts import get_object_or_404
-
-from apps.vehicles.models import Vehicle
 from .models import Booking
 from django import forms
 
